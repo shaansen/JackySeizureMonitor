@@ -9,6 +9,7 @@ import {
 } from "@apollo/client";
 import EventList from "./components/EventList";
 import AddEvent from "./components/AddEvent";
+import Calendar from "./components/Calendar";
 import { Navbar, Nav } from "react-bootstrap";
 
 const client = new ApolloClient({
@@ -47,7 +48,7 @@ function App() {
             <EventList />
           </Route>
           <Route path="/calendar">
-            <AddEvent />
+            <Calendar />
           </Route>
           <Route path="/">
             <AddEvent />

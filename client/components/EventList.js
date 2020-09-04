@@ -42,8 +42,8 @@ const EventList = () => {
       timingsByDate[date].event = [...timingsByDate[date].event, d];
     } else {
       timingsByDate[date] = {
-        count: 0,
-        event: [],
+        count: 1,
+        event: [d],
       };
     }
   });
