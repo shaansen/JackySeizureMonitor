@@ -1,1 +1,1 @@
-require('./event');
+require("./event");
