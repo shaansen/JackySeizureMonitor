@@ -40,7 +40,7 @@ const ExchangeRates = () => {
       timingsByDate[date].event = [...timingsByDate[date].event, d];
     } else {
       timingsByDate[date] = {
-        count: 1,
+        count: 0,
         event: [],
       };
     }
@@ -55,7 +55,6 @@ const ExchangeRates = () => {
           <th>Day</th>
           <th>Recurrence</th>
           <th>Times</th>
-          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -67,7 +66,7 @@ const ExchangeRates = () => {
               <td>{index + 1}</td>
               <td>{date.format("MMMM Do YYYY")}</td>
               <td>{date.format("dddd")}</td>
-              <td>{timingsByDate[date.format("MMMM Do YYYY")].count}</td>
+              <td>{timingsByDate[date.format("MMMM Do YYYY")].count || 0}</td>
               <td>
                 <ul>
                   {timingsByDate[date.format("MMMM Do YYYY")].event.map(
@@ -77,7 +76,6 @@ const ExchangeRates = () => {
                   )}
                 </ul>
               </td>
-              <td></td>
             </tr>
           );
         })}
