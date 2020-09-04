@@ -19,9 +19,7 @@ const AddEvent = () => {
   return (
     <Container>
       {complete && (
-        <Alert variant={'success'}>
-          Successfully saved an event
-        </Alert>
+        <Alert variant={"success"}>Successfully saved an event</Alert>
       )}
       <Button
         onClick={(e) => {

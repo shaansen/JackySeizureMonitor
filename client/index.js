@@ -16,7 +16,7 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
   return (
@@ -59,7 +59,7 @@ function App() {
 }
 
 render(
-  <Router>
+  <Router basename={"/"}>
     <App />
   </Router>,
   document.getElementById("root")
