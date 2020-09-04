@@ -1,27 +1,30 @@
-import * as React from "react";
-import gql from "graphql-tag";
-import { graphql } from "react-apollo";
+import React from "react";
+import { render } from "react-dom";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useQuery,
+  gql,
+} from "@apollo/client";
 
-const EventList = (props) => {
-  const events = props.data.events;
-  if (events === undefined) {
-    return null;
-  }
-  return (
-    <div>
-      {events.map((event) => {
-        return <div key={event.date}>{event.date}</div>;
-      })}
-    </div>
-  );
+const ExchangeRates = () => {
+  const { loading, error, data } = useQuery(gql`
+    {
+      events {
+        date
+      }
+    }
+  `);
+
+  console.log(data);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+  return <div>{data.events.map((event, index) => {
+    return <p key={index}>{event.date}</p>
+  })}</div>;
 };
 
-const query = gql`
-  {
-    events {
-      date
-    }
-  }
-`;
-
-export default graphql(query)(EventList);
+export default ExchangeRates;

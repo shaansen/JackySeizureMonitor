@@ -1,21 +1,29 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import ApolloClient from "apollo-client";
-import { ApolloProvider } from "react-apollo";
+import { render } from "react-dom";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useQuery,
+  gql,
+} from "@apollo/client";
 import EventList from "./components/EventList";
-import AddNewEvent from "./components/AddNewEvent";
+import AddEvent from "./components/AddEvent";
 
-const client = new ApolloClient({});
+const client = new ApolloClient({
+  uri: "http://localhost:4000/graphql",
+  cache: new InMemoryCache(),
+});
 
-const Root = () => {
+function App() {
   return (
     <ApolloProvider client={client}>
       <div>
-        <AddNewEvent />
         <EventList />
+        <AddEvent />
       </div>
     </ApolloProvider>
   );
-};
+}
 
-ReactDOM.render(<Root />, document.querySelector("#root"));
+render(<App />, document.getElementById("root"));
