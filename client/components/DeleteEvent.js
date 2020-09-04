@@ -2,6 +2,7 @@ import { gql, useMutation } from "@apollo/client";
 import React from "react";
 import moment from "moment";
 import { Container, Button, Alert } from "react-bootstrap";
+import { GET_EVENTS } from "./EventList";
 
 const DELETE_EVENT = gql`
   mutation DeleteEvent($id: String!) {
@@ -20,7 +21,10 @@ const DeleteEvent = (props) => {
       onClick={(e) => {
         e.preventDefault();
         const d = new Date();
-        deleteEvent({ variables: { id: props.event.id } });
+        deleteEvent({
+          variables: { id: props.event.id },
+          refetchQueries: [{ query: GET_EVENTS }],
+        });
       }}
     >
       {time}

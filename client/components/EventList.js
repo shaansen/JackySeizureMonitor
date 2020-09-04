@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { render } from "react-dom";
 import {
   ApolloClient,
@@ -12,15 +12,17 @@ import moment from "moment";
 import _ from "lodash";
 import DeleteEvent from "./DeleteEvent";
 
-const ExchangeRates = () => {
-  const { loading, error, data } = useQuery(gql`
-    {
-      events {
-        id
-        date
-      }
+export const GET_EVENTS = gql`
+  {
+    events {
+      id
+      date
     }
-  `);
+  }
+`;
+
+const EventList = () => {
+  const { loading, error, data } = useQuery(GET_EVENTS);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -84,4 +86,4 @@ const ExchangeRates = () => {
   );
 };
 
-export default ExchangeRates;
+export default EventList;

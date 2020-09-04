@@ -1,6 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { Container, Button, Alert } from "react-bootstrap";
+import { GET_EVENTS } from "./EventList";
 
 const ADD_EVENT = gql`
   mutation AddEvent($date: String!) {
@@ -25,7 +26,10 @@ const AddEvent = () => {
         onClick={(e) => {
           e.preventDefault();
           const d = new Date();
-          addEvent({ variables: { date: d.toString() } });
+          addEvent({
+            variables: { date: d.toString() },
+            refetchQueries: [{ query: GET_EVENTS }],
+          });
           setComplete(true);
         }}
       >
