@@ -17,14 +17,16 @@ const ExchangeRates = () => {
     }
   `);
 
-  console.log(data);
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  return <div>{data.events.map((event, index) => {
-    return <p key={index}>{event.date}</p>
-  })}</div>;
+  return (
+    <div>
+      {data.events.map((event, index) => {
+        return <p key={index}>{event.date}</p>;
+      })}
+    </div>
+  );
 };
 
 export default ExchangeRates;
