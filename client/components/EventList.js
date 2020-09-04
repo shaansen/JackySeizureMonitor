@@ -10,11 +10,13 @@ import {
 import { Table } from "react-bootstrap";
 import moment from "moment";
 import _ from "lodash";
+import DeleteEvent from "./DeleteEvent";
 
 const ExchangeRates = () => {
   const { loading, error, data } = useQuery(gql`
     {
       events {
+        id
         date
       }
     }
@@ -32,14 +34,14 @@ const ExchangeRates = () => {
 
   _.forEach(data.events, (d) => {
     const date = moment(d.date).format("MMMM Do YYYY");
-    const time = moment(d.date).format("h:mm:ss a");
+
     if (timingsByDate[date] !== undefined) {
       timingsByDate[date].count = timingsByDate[date].count + 1;
-      timingsByDate[date].times = [...timingsByDate[date].times, time];
+      timingsByDate[date].event = [...timingsByDate[date].event, d];
     } else {
       timingsByDate[date] = {
         count: 1,
-        times: [],
+        event: [],
       };
     }
   });
@@ -68,10 +70,10 @@ const ExchangeRates = () => {
               <td>{timingsByDate[date.format("MMMM Do YYYY")].count}</td>
               <td>
                 <ul>
-                  {timingsByDate[date.format("MMMM Do YYYY")].times.map(
-                    (time, i) => (
-                      <li key={i}>{time}</li>
-                    )
+                  {timingsByDate[date.format("MMMM Do YYYY")].event.map(
+                    (e, i) => {
+                      return <DeleteEvent key={i} event={e}></DeleteEvent>;
+                    }
                   )}
                 </ul>
               </td>

@@ -18,7 +18,7 @@ const mutation = new GraphQLObjectType({
     },
     deleteEvent: {
       type: EventType,
-      args: { id: { type: GraphQLID } },
+      args: { id: { type: GraphQLString } },
       resolve(parentValue, { id }) {
         return Event.remove({ _id: id });
       },
