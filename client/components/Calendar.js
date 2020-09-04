@@ -43,9 +43,6 @@ const Calendar = () => {
     }
   });
 
-  const startDate = new Date("2020-05-01");
-  console.log(startDate);
-
   return (
     <CalendarHeatmap
       values={Object.values(timingsByDate)}

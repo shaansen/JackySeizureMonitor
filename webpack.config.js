@@ -19,6 +19,10 @@ module.exports = {
         use: ["style-loader", "css-loader"],
         test: /\.css$/,
       },
+      {
+        test: /\.less$/,
+        loader: "less-loader", // compiles Less to CSS
+      },
     ],
   },
   devServer: {

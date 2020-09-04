@@ -1,8 +1,11 @@
 import { gql, useMutation } from "@apollo/client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Button, Alert } from "react-bootstrap";
 import { GET_EVENTS } from "./EventList";
-import DateTimePicker from "react-datetime-picker/dist/entry.nostyle";
+import Datetime from "react-datetime";
+import "./react-datetime.css";
+import { initialData } from "./initialData";
+import moment from "moment";
 
 const ADD_EVENT = gql`
   mutation AddEvent($date: String!) {
@@ -19,6 +22,17 @@ const AddEvent = () => {
   const [complete, setComplete] = useState(false);
   const [dtp, setDTP] = useState(new Date());
   const onChange = (date) => setDTP(date);
+
+  //   useEffect(() => {
+  //     console.log("Rendering once")
+  // initialData.forEach(date => {
+  //     const d = moment(date,"DD/MM/YYYY hh:mmA");
+  //     addEvent({
+  //               variables: { date: d },
+  //               refetchQueries: [{ query: GET_EVENTS }],
+  //             });
+  //   })
+  //   }, [])
 
   return (
     <div>
@@ -42,22 +56,7 @@ const AddEvent = () => {
       <hr />
       <div>
         <h4>Report at custom time</h4>
-
-        <DateTimePicker
-          amPmAriaLabel="Select AM/PM"
-          calendarAriaLabel="Toggle calendar"
-          clearAriaLabel="Clear value"
-          dayAriaLabel="Day"
-          hourAriaLabel="Hour"
-          maxDetail="second"
-          minuteAriaLabel="Minute"
-          monthAriaLabel="Month"
-          nativeInputAriaLabel="Date and time"
-          onChange={onChange}
-          secondAriaLabel="Second"
-          value={dtp}
-          yearAriaLabel="Year"
-        />
+        <Datetime value={dtp} defaultValue={dtp} onChange={onChange} />
         <Button
           onClick={(e) => {
             e.preventDefault();
