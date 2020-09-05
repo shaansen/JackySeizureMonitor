@@ -69,6 +69,11 @@
 }
 
 .calendar-container {
-  padding: 10px 10px 10px 100px;
+  padding: 10px 10px 10px 110px;
   overflow-x: auto;
+}
+
+.timeline-container {
+  position: fixed;
+  left: 0;
 }

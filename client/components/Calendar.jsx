@@ -1,5 +1,5 @@
 import "react-calendar-heatmap/dist/styles.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Calendar.css";
 import CalendarHeatmap from "react-calendar-heatmap";
 import ReactTooltip from "react-tooltip";
@@ -33,6 +33,10 @@ const Calendar = () => {
   const { loading, error, data } = useQuery(GET_EVENTS);
   const [currentYear, setYear] = useState(moment(new Date()).format("YYYY"));
 
+  useEffect(() => {
+    ReactTooltip.rebuild();
+  });
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   const years = _.sortedUniq(
@@ -56,17 +60,19 @@ const Calendar = () => {
   });
 
   const timeline = (
-    <Timeline>
-      {years.map((year) => (
-        <TimelineItem key={year} onClick={() => setYear(year)}>
-          <TimelineSeparator>
-            <TimelineDot color={year === currentYear ? "primary" : "grey"} />
-            <TimelineConnector />
-          </TimelineSeparator>
-          <TimelineContent>{year}</TimelineContent>
-        </TimelineItem>
-      ))}
-    </Timeline>
+    <div className="timeline-container">
+      <Timeline>
+        {years.map((year) => (
+          <TimelineItem key={year} onClick={() => setYear(year)}>
+            <TimelineSeparator>
+              <TimelineDot color={year === currentYear ? "primary" : "grey"} />
+              <TimelineConnector />
+            </TimelineSeparator>
+            <TimelineContent>{year}</TimelineContent>
+          </TimelineItem>
+        ))}
+      </Timeline>
+    </div>
   );
 
   return (
@@ -80,11 +86,11 @@ const Calendar = () => {
         showWeekdayLabels={true}
         weekdayLabels={["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]}
         tooltipDataAttrs={(value) => {
-          return (
-            value.date && {
+          if (value.date !== null) {
+            return {
               "data-tip": `${value.date} - ${value.count || 0} times`,
-            }
-          );
+            };
+          }
         }}
         classForValue={(value) => {
           if (!value) {
