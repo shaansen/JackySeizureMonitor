@@ -38,21 +38,30 @@ import {
 import ReportIcon from "@material-ui/icons/Report";
 import GridOnIcon from "@material-ui/icons/GridOn";
 import EventIcon from "@material-ui/icons/Event";
+import "./style/styles.scss";
 
 function App() {
   const AppBarHeader = (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6">Epilepsy Tracker</Typography>
-        <Link to="/">
-          <ReportIcon />
-        </Link>
-        <Link to="/table">
-          <GridOnIcon />
-        </Link>
-        <Link to="/calendar">
-          <EventIcon />
-        </Link>
+        <div className="app-nav">
+          <div className="nav-app-name">
+            <Link to="/">
+              <Typography variant="h6">Epilepsy Tracker</Typography>
+            </Link>
+          </div>
+          <div className="nav-app-links">
+            <Link to="/">
+              <ReportIcon />
+            </Link>
+            <Link to="/table">
+              <GridOnIcon />
+            </Link>
+            <Link to="/calendar">
+              <EventIcon />
+            </Link>
+          </div>
+        </div>
       </Toolbar>
     </AppBar>
   );
