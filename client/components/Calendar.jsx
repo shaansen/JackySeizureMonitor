@@ -2,6 +2,7 @@ import "react-calendar-heatmap/dist/styles.css";
 import React, { useState } from "react";
 import "./Calendar.css";
 import CalendarHeatmap from "react-calendar-heatmap";
+import ReactTooltip from "react-tooltip";
 
 import {
   ApolloClient,
@@ -34,27 +35,38 @@ const Calendar = () => {
     const date = moment(d.date).format("YYYY-MM-DD");
 
     if (timingsByDate[date] !== undefined) {
-      timingsByDate[date].total = timingsByDate[date].total + 1;
+      timingsByDate[date].count = timingsByDate[date].count + 1;
     } else {
       timingsByDate[date] = {
-        total: 1,
+        count: 1,
         date: date,
       };
     }
   });
 
   return (
-    <CalendarHeatmap
-      values={Object.values(timingsByDate)}
-      showWeekdayLabels={true}
-      weekdayLabels={["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]}
-      classForValue={(value) => {
-        if (!value) {
-          return "color-empty";
-        }
-        return `color-scale-${value.count}`;
-      }}
-    />
+    <div className="calendar-container">
+      <CalendarHeatmap
+        values={Object.values(timingsByDate)}
+        horizontal={false}
+        showWeekdayLabels={true}
+        weekdayLabels={["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]}
+        tooltipDataAttrs={(value) => {
+          return (
+            value.date && {
+              "data-tip": `${value.date} - ${value.count || 0} times`,
+            }
+          );
+        }}
+        classForValue={(value) => {
+          if (!value) {
+            return "color-empty";
+          }
+          return `color-scale-${value.count}`;
+        }}
+      />
+      <ReactTooltip />
+    </div>
   );
 };
 
