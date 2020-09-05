@@ -1,11 +1,12 @@
 import { gql, useMutation } from "@apollo/client";
 import React, { useState, useEffect } from "react";
-import { Container, Button, Alert } from "react-bootstrap";
+import Alert from "@material-ui/lab/Alert";
+import { Button } from "@material-ui/core";
 import { GET_EVENTS } from "./EventList";
-import Datetime from "react-datetime";
 import "./react-datetime.css";
 import { initialData } from "./initialData";
 import moment from "moment";
+import TextField from "@material-ui/core/TextField";
 
 const ADD_EVENT = gql`
   mutation AddEvent($date: String!) {
@@ -37,10 +38,15 @@ const AddEvent = () => {
   return (
     <div>
       {complete && (
-        <Alert variant={"success"}>Successfully saved an event</Alert>
+        <Alert severity="success">
+          Successfully saved an event on Date {moment(dtp).format("YYYY-MM-DD")}{" "}
+          at Time {moment(dtp).format("hh:mm:ss a")}
+        </Alert>
       )}
 
       <Button
+        variant="contained"
+        color="primary"
         onClick={(e) => {
           e.preventDefault();
           const d = new Date();
@@ -56,8 +62,22 @@ const AddEvent = () => {
       <hr />
       <div>
         <h4>Report at custom time</h4>
-        <Datetime value={dtp} defaultValue={dtp} onChange={onChange} />
+        {/* <Datetime value={dtp} defaultValue={dtp} onChange={onChange} /> */}
+        <TextField
+          id="datetime-local"
+          label="Next appointment"
+          type="datetime-local"
+          defaultValue={
+            moment(dtp).format("YYYY-MM-DD") + "T" + moment(dtp).format("HH:mm")
+          }
+          onChange={(e) => onChange(moment(e.target.value, "YYYY-MM-DDTHH:mm"))}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
         <Button
+          variant="contained"
+          color="primary"
           onClick={(e) => {
             e.preventDefault();
             addEvent({
@@ -67,7 +87,7 @@ const AddEvent = () => {
             setComplete(true);
           }}
         >
-          Report Epilepsy Now
+          Report Epilepsy Event
         </Button>
       </div>
     </div>

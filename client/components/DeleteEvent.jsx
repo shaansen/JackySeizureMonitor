@@ -1,8 +1,8 @@
 import { gql, useMutation } from "@apollo/client";
 import React from "react";
 import moment from "moment";
-import { Container, Button, Alert } from "react-bootstrap";
 import { GET_EVENTS } from "./EventList";
+import { Button } from "@material-ui/core";
 
 const DELETE_EVENT = gql`
   mutation DeleteEvent($id: String!) {

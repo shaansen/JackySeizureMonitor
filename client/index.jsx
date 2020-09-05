@@ -10,38 +10,57 @@ import {
 import EventList from "./components/EventList";
 import AddEvent from "./components/AddEvent";
 import Calendar from "./components/Calendar";
-import { Navbar, Nav } from "react-bootstrap";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
   cache: new InMemoryCache(),
 });
-
 import { HashRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { fade, makeStyles } from "@material-ui/core/styles";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  InputBase,
+  Badge,
+  MenuItem,
+  Menu,
+} from "@material-ui/core";
+import {
+  MenuIcon,
+  Search,
+  AccountCircle,
+  Mail,
+  Notifications,
+  MoreVert,
+} from "@material-ui/icons";
+import ReportIcon from "@material-ui/icons/Report";
+import GridOnIcon from "@material-ui/icons/GridOn";
+import EventIcon from "@material-ui/icons/Event";
 
 function App() {
+  const AppBarHeader = (
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6">Epilepsy Tracker</Typography>
+        <Link to="/">
+          <ReportIcon />
+        </Link>
+        <Link to="/table">
+          <GridOnIcon />
+        </Link>
+        <Link to="/calendar">
+          <EventIcon />
+        </Link>
+      </Toolbar>
+    </AppBar>
+  );
+
   return (
     <div>
       <ApolloProvider client={client}>
-        <Navbar bg="light" expand="lg">
-          <Navbar.Brand as={Link} to="/">
-            Jacky Seizure Tracker
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link as={Link} to="/">
-                Report Event
-              </Nav.Link>
-              <Nav.Link as={Link} to="/table">
-                Table View
-              </Nav.Link>
-              <Nav.Link as={Link} to="/calendar">
-                Calendar View
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
+        {AppBarHeader}
 
         <Switch>
           <Route path="/table">

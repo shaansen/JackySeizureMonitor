@@ -7,10 +7,17 @@ import {
   useQuery,
   gql,
 } from "@apollo/client";
-import { Table } from "react-bootstrap";
 import moment from "moment";
 import _ from "lodash";
 import DeleteEvent from "./DeleteEvent";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 
 export const GET_EVENTS = gql`
   {
@@ -49,40 +56,48 @@ const EventList = () => {
   });
 
   return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Date</th>
-          <th>Day</th>
-          <th>Recurrence</th>
-          <th>Times</th>
-        </tr>
-      </thead>
-      <tbody>
-        {filteredDates.map((event, index) => {
-          const d = event.date;
-          const date = moment(d);
-          return (
-            <tr key={index}>
-              <td>{index + 1}</td>
-              <td>{date.format("MMMM Do YYYY")}</td>
-              <td>{date.format("dddd")}</td>
-              <td>{timingsByDate[date.format("MMMM Do YYYY")].count || 0}</td>
-              <td>
-                <ul>
-                  {timingsByDate[date.format("MMMM Do YYYY")].event.map(
-                    (e, i) => {
-                      return <DeleteEvent key={i} event={e}></DeleteEvent>;
-                    }
-                  )}
-                </ul>
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </Table>
+    <TableContainer component={Paper}>
+      <Table aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Id</TableCell>
+            <TableCell>Date</TableCell>
+            <TableCell>Day</TableCell>
+            <TableCell>Recurrence</TableCell>
+            <TableCell>Times</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {filteredDates.map((event, index) => {
+            const d = event.date;
+            const date = moment(d);
+            return (
+              <TableRow key={index}>
+                <TableCell>{index + 1}</TableCell>
+                <TableCell>{date.format("MMMM Do YYYY")}</TableCell>
+                <TableCell>{date.format("dddd")}</TableCell>
+                <TableCell>
+                  {timingsByDate[date.format("MMMM Do YYYY")].count || 0}
+                </TableCell>
+                <TableCell>
+                  <ButtonGroup
+                    variant="contained"
+                    color="primary"
+                    aria-label="contained primary button group"
+                  >
+                    {timingsByDate[date.format("MMMM Do YYYY")].event.map(
+                      (e, i) => {
+                        return <DeleteEvent key={i} event={e}></DeleteEvent>;
+                      }
+                    )}
+                  </ButtonGroup>
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
