@@ -3,6 +3,7 @@ import React from "react";
 import moment from "moment";
 import { GET_EVENTS } from "./EventList";
 import { Button } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 
 const DELETE_EVENT = gql`
   mutation DeleteEvent($id: String!) {
@@ -18,6 +19,10 @@ const DeleteEvent = (props) => {
   const time = moment(props.event.date).format("h:mm:ss a");
   return (
     <Button
+      className="event-button"
+      startIcon={<CloseIcon />}
+      variant="contained"
+      color="secondary"
       onClick={(e) => {
         e.preventDefault();
         const d = new Date();

@@ -67,7 +67,7 @@ function App() {
   );
 
   return (
-    <div>
+    <div className="app-container">
       <ApolloProvider client={client}>
         {AppBarHeader}
 

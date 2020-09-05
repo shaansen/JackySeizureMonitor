@@ -1,3 +1,10 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: 100vh;
+}
+
 .app-nav {
   display: flex;
   width: 100%;
@@ -30,7 +37,7 @@
   }
 
   .report-event-now {
-    height: 30%;
+    height: 20%;
     display: flex;
     justify-content: center;
     button {
@@ -41,5 +48,12 @@
     height: 30%;
     display: flex;
     flex-direction: column;
+  }
+}
+
+.event-button-cell {
+  .event-button {
+    min-width: 131px;
+    margin: 2px 5px;
   }
 }

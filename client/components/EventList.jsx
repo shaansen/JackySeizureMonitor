@@ -57,13 +57,12 @@ const EventList = () => {
 
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="simple table">
+      <Table stickyHeader aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Id</TableCell>
             <TableCell>Date</TableCell>
             <TableCell>Day</TableCell>
-            <TableCell>Recurrence</TableCell>
             <TableCell>Times</TableCell>
           </TableRow>
         </TableHead>
@@ -75,22 +74,13 @@ const EventList = () => {
               <TableRow key={index}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>{date.format("MMMM Do YYYY")}</TableCell>
-                <TableCell>{date.format("dddd")}</TableCell>
-                <TableCell>
-                  {timingsByDate[date.format("MMMM Do YYYY")].count || 0}
-                </TableCell>
-                <TableCell>
-                  <ButtonGroup
-                    variant="contained"
-                    color="primary"
-                    aria-label="contained primary button group"
-                  >
-                    {timingsByDate[date.format("MMMM Do YYYY")].event.map(
-                      (e, i) => {
-                        return <DeleteEvent key={i} event={e}></DeleteEvent>;
-                      }
-                    )}
-                  </ButtonGroup>
+                <TableCell>{date.format("ddd")}</TableCell>
+                <TableCell className="event-button-cell">
+                  {timingsByDate[date.format("MMMM Do YYYY")].event.map(
+                    (e, i) => {
+                      return <DeleteEvent key={i} event={e}></DeleteEvent>;
+                    }
+                  )}
                 </TableCell>
               </TableRow>
             );

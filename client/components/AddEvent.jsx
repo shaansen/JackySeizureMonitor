@@ -67,8 +67,7 @@ const AddEvent = () => {
         </Button>
       </div>
       <hr />
-      <h2 className="or">OR</h2>
-
+      <h4 className="or">OR</h4>
       <hr />
       <div className="report-event-custom">
         <h4>Report at custom time</h4>
