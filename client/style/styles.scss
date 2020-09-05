@@ -24,30 +24,40 @@
   }
 }
 
+.report-created-alert {
+  position: fixed;
+  top: 10%;
+  padding: 10px;
+}
+
 .report-event-container {
   height: 100%;
   padding: 10px;
-
-  .report-created-alert {
-    height: 10%;
-  }
+  display: flex;
 
   .or {
     text-align: center;
   }
 
   .report-event-now {
-    height: 20%;
+    min-height: 20%;
+    margin: 5px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    button {
+    width: 100%;
+
+    button.MuiButton-containedPrimary {
       font-size: 30px;
     }
   }
   .report-event-custom {
-    height: 30%;
+    margin: 5px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
   }
 }
 
