@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { render } from "react-dom";
 import {
   ApolloClient,
@@ -16,6 +16,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Paper from "@material-ui/core/Paper";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 
@@ -30,14 +31,10 @@ export const GET_EVENTS = gql`
 
 const EventList = () => {
   const { loading, error, data } = useQuery(GET_EVENTS);
+  const [sortDirection, setSortDirection] = useState("desc");
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-
-  const filteredDates = _.uniqBy(data.events, (d) => {
-    const date = moment(d.date);
-    return date.format("MMMM Do YYYY");
-  });
 
   const timingsByDate = {};
 
@@ -55,21 +52,41 @@ const EventList = () => {
     }
   });
 
+  const handleSortChange = () => {
+    setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+  };
+
+  const sortedData = _.uniq(
+    data.events.map((a) => a.date),
+    (a) => moment(a).format("YYYY-MM-DD")
+  );
+  sortedData.sort((a, b) => {
+    return sortDirection === "asc" ? 1 : -1;
+  });
+
   return (
     <TableContainer component={Paper}>
       <Table stickyHeader aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Id</TableCell>
-            <TableCell>Date</TableCell>
+
+            <TableCell>
+              <TableSortLabel
+                active={true}
+                direction={sortDirection}
+                onClick={handleSortChange}
+              >
+                Date
+              </TableSortLabel>
+            </TableCell>
             <TableCell>Day</TableCell>
             <TableCell>Times</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {filteredDates.map((event, index) => {
-            const d = event.date;
-            const date = moment(d);
+          {sortedData.map((event, index) => {
+            const date = moment(event);
             return (
               <TableRow key={index}>
                 <TableCell>{index + 1}</TableCell>
