@@ -10,3 +10,15 @@
 .react-calendar-heatmap .color-scale-4 {
   fill: #1e6823;
 }
+
+.react-calendar-heatmap-landscape {
+  width: 200vw;
+}
+
+.react-calendar-heatmap-portrait {
+  height: 100%;
+}
+
+.toggle-container {
+  margin-left: 20px;
+}

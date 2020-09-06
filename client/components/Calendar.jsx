@@ -19,6 +19,17 @@ import TimelineSeparator from "@material-ui/lab/TimelineSeparator";
 import TimelineConnector from "@material-ui/lab/TimelineConnector";
 import TimelineContent from "@material-ui/lab/TimelineContent";
 import TimelineDot from "@material-ui/lab/TimelineDot";
+import FormatAlignLeftIcon from "@material-ui/icons/FormatAlignLeft";
+import FormatAlignCenterIcon from "@material-ui/icons/FormatAlignCenter";
+import FormatAlignRightIcon from "@material-ui/icons/FormatAlignRight";
+import FormatAlignJustifyIcon from "@material-ui/icons/FormatAlignJustify";
+import LaptopIcon from "@material-ui/icons/Laptop";
+import TvIcon from "@material-ui/icons/Tv";
+import PhoneAndroidIcon from "@material-ui/icons/PhoneAndroid";
+import Grid from "@material-ui/core/Grid";
+import ToggleButton from "@material-ui/lab/ToggleButton";
+import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+import StayCurrentLandscapeIcon from "@material-ui/icons/StayCurrentLandscape";
 
 export const GET_EVENTS = gql`
   {
@@ -32,6 +43,7 @@ export const GET_EVENTS = gql`
 const Calendar = () => {
   const { loading, error, data } = useQuery(GET_EVENTS);
   const [currentYear, setYear] = useState(moment(new Date()).format("YYYY"));
+  const [orientation, setOrientation] = useState("portrait");
 
   useEffect(() => {
     ReactTooltip.rebuild();
@@ -59,6 +71,32 @@ const Calendar = () => {
     }
   });
 
+  const toggle = (
+    <div className="toggle-container">
+      <ToggleButtonGroup
+        orientation="vertical"
+        value={"somtheing"}
+        onChange={() => null}
+        aria-label="device"
+      >
+        <ToggleButton
+          value="tv"
+          aria-label="tv"
+          onClick={() => setOrientation("landscape")}
+        >
+          <StayCurrentLandscapeIcon />
+        </ToggleButton>
+        <ToggleButton
+          value="phone"
+          aria-label="phone"
+          onClick={() => setOrientation("portrait")}
+        >
+          <PhoneAndroidIcon />
+        </ToggleButton>
+      </ToggleButtonGroup>
+    </div>
+  );
+
   const timeline = (
     <div className="timeline-container">
       <Timeline>
@@ -74,35 +112,36 @@ const Calendar = () => {
       </Timeline>
     </div>
   );
-
   return (
     <div className="calendar-container">
       {timeline}
-      <CalendarHeatmap
-        startDate={new Date(`${currentYear}-01-01`)}
-        endDate={new Date(`${currentYear}-12-01`)}
-        values={Object.values(timingsByDate)}
-        horizontal={false}
-        showWeekdayLabels={true}
-        weekdayLabels={["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]}
-        tooltipDataAttrs={(value) => {
-          if (value.date !== null) {
-            return {
-              "data-tip": `${moment(value.date).format("MMM Do")} - ${
-                value.count || 0
-              } ${value.count == 1 ? "time" : "times"}`,
-              "data-iscapture": true,
-            };
-          }
-        }}
-        classForValue={(value) => {
-          if (!value) {
-            return "color-empty";
-          }
-          return `color-scale-${value.count}`;
-        }}
-      />
-      <ReactTooltip />
+      <div className={`react-calendar-heatmap-${orientation}`}>
+        <CalendarHeatmap
+          startDate={new Date(`${currentYear}-01-01`)}
+          endDate={new Date(`${currentYear}-12-01`)}
+          values={Object.values(timingsByDate)}
+          horizontal={orientation === "landscape"}
+          showWeekdayLabels={true}
+          weekdayLabels={["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]}
+          tooltipDataAttrs={(value) => {
+            if (value.date !== null) {
+              return {
+                "data-tip": `${moment(value.date).format("MMM Do")} - ${
+                  value.count || 0
+                } ${value.count == 1 ? "time" : "times"}`,
+                "data-iscapture": true,
+              };
+            }
+          }}
+          classForValue={(value) => {
+            if (!value) {
+              return "color-empty";
+            }
+            return `color-scale-${value.count}`;
+          }}
+        />
+        <ReactTooltip />
+      </div>
     </div>
   );
 };

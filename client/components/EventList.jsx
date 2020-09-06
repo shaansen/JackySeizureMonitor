@@ -56,9 +56,9 @@ const EventList = () => {
     setSortDirection(sortDirection === "asc" ? "desc" : "asc");
   };
 
-  const sortedData = _.uniq(
+  const sortedData = _.sortedUniqBy(
     data.events.map((a) => a.date),
-    (a) => moment(a).format("YYYY-MM-DD")
+    (a) => moment(a).format("YYYYMMDD")
   );
   sortedData.sort((a, b) => {
     return sortDirection === "asc" ? 1 : -1;
