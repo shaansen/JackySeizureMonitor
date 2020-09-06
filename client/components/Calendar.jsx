@@ -88,7 +88,10 @@ const Calendar = () => {
         tooltipDataAttrs={(value) => {
           if (value.date !== null) {
             return {
-              "data-tip": `${value.date} - ${value.count || 0} times`,
+              "data-tip": `${moment(value.date).format("MMM Do")} - ${
+                value.count || 0
+              } times`,
+              "data-iscapture": true,
             };
           }
         }}
