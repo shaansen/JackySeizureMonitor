@@ -90,7 +90,7 @@ const Calendar = () => {
             return {
               "data-tip": `${moment(value.date).format("MMM Do")} - ${
                 value.count || 0
-              } times`,
+              } ${value.count == 1 ? "time" : "times"}`,
               "data-iscapture": true,
             };
           }
