@@ -9,7 +9,8 @@
   },
   "scripts": {
     "dev": "nodemon index.js --ignore client",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write .",
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
