@@ -1,0 +1,88 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: 100vh;
+}
+
+.app-nav {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: row;
+
+  a,
+  a:visited,
+  a:active {
+    color: #fff;
+  }
+
+  .nav-app-links {
+    a {
+      padding: 0 10px;
+    }
+  }
+}
+
+.report-created-alert {
+  position: fixed;
+  top: 10%;
+  padding: 10px;
+}
+
+.report-event-container {
+  height: 100%;
+  padding: 10px;
+  display: flex;
+
+  .or {
+    text-align: center;
+  }
+
+  .report-event-now {
+    min-height: 20%;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+
+    button.MuiButton-containedPrimary {
+      font-size: 30px;
+    }
+  }
+  .report-event-custom {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+  }
+}
+
+.event-button-cell {
+  .event-button {
+    min-width: 131px;
+    margin: 2px 5px;
+  }
+}
+
+.calendar-container {
+  padding: 10px 10px 10px 110px;
+  overflow-x: auto;
+  height: 100%;
+}
+
+.timeline-container {
+  position: fixed;
+  left: 0;
+}
+
+.landing-container {
+  height: 100%;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
