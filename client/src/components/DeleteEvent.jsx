@@ -1,7 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import React from "react";
 import moment from "moment";
-import { GET_EVENTS } from "./EventList";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -10,18 +9,10 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import DeleteIcon from "@material-ui/icons/Delete";
-
-const DELETE_EVENT = gql`
-  mutation DeleteEvent($id: String!) {
-    deleteEvent(id: $id) {
-      id
-    }
-  }
-`;
+import * as actions from "../actions";
+import { connect } from "react-redux";
 
 const DeleteEvent = (props) => {
-  /* eslint-disable */
-  const [deleteEvent, { data }] = useMutation(DELETE_EVENT); // eslint-disable-line
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -67,10 +58,7 @@ const DeleteEvent = (props) => {
             startIcon={<DeleteIcon />}
             onClick={(e) => {
               e.preventDefault();
-              deleteEvent({
-                variables: { id: props.event.id },
-                refetchQueries: [{ query: GET_EVENTS }],
-              });
+              props.deleteEvent(props.event.id);
             }}
             color='primary'
             autoFocus
@@ -83,4 +71,8 @@ const DeleteEvent = (props) => {
   );
 };
 
-export default DeleteEvent;
+const mapStateToProps = ({ events }) => {
+  return { events };
+};
+
+export default connect(mapStateToProps, actions)(DeleteEvent);

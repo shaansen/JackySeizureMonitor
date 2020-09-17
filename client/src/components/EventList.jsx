@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery, gql } from "@apollo/client";
 import moment from "moment";
 import _ from "lodash";
@@ -11,26 +11,20 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Paper from "@material-ui/core/Paper";
+import * as actions from "../actions";
+import { connect } from "react-redux";
 
-export const GET_EVENTS = gql`
-  {
-    events {
-      id
-      date
-    }
-  }
-`;
-
-const EventList = () => {
-  const { loading, error, data } = useQuery(GET_EVENTS);
+const EventList = (props) => {
   const [sortDirection, setSortDirection] = useState("desc");
+  let data = props.events || [];
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  useEffect(() => {
+    props.getEvents();
+  }, []);
 
   const timingsByDate = {};
 
-  _.forEach(data.events, (d) => {
+  _.forEach(data, (d) => {
     const date = moment(d.date).format("MMMM Do YYYY");
 
     if (timingsByDate[date] !== undefined) {
@@ -49,7 +43,7 @@ const EventList = () => {
   };
 
   const sortedData = _.sortedUniqBy(
-    data.events.map((a) => a.date),
+    data.map((a) => a.date),
     (a) => moment(a).format("YYYYMMDD")
   );
   sortedData.sort((a, b) => {
@@ -100,4 +94,8 @@ const EventList = () => {
   );
 };
 
-export default EventList;
+const mapStateToProps = ({ events }) => {
+  return { events };
+};
+
+export default connect(mapStateToProps, actions)(EventList);

@@ -1,2 +1,2 @@
-require("./event");
 require("./user");
+require("./event");

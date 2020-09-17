@@ -6,23 +6,21 @@ import { GET_EVENTS } from "./EventList";
 import { initialData } from "./initialData"; // eslint-disable-line
 import moment from "moment";
 import TextField from "@material-ui/core/TextField";
+import * as actions from "../actions";
+import { connect } from "react-redux";
 
-const ADD_EVENT = gql`
-  mutation AddEvent($date: String!) {
-    addEvent(date: $date) {
-      id
-      date
-    }
-  }
-`;
-
-const AddEvent = () => {
-  const [addEvent, { data }] = useMutation(ADD_EVENT); // eslint-disable-line
-  const [complete, setComplete] = useState(false);
+const AddEvent = (props) => {
   const [dtp, setDTP] = useState(new Date());
   const [saveddtp, setsavedDTP] = useState(null);
   const [later, setLater] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+
   const onChange = (date) => setDTP(date);
+  const addEvent = (date) => {
+    props.addEvent({ notes: "Something" });
+    setsavedDTP(date);
+    setShowNotification(true);
+  };
 
   //   useEffect(() => {
   //     console.log("Rendering once")
@@ -38,13 +36,10 @@ const AddEvent = () => {
   return (
     <React.Fragment>
       <div className='report-created-alert'>
-        {complete && (
-          <Alert severity='success'>
-            Successfully saved an event on Date{" "}
-            {moment(saveddtp).format("YYYY-MM-DD")} at Time{" "}
-            {moment(saveddtp).format("hh:mm:ss a")}
-          </Alert>
-        )}
+        {showNotification &&
+          `Successfully saved an event on Date ${moment(saveddtp).format(
+            "YYYY-MM-DD"
+          )} at Time ${moment(saveddtp).format("hh:mm:ss a")}`}
       </div>
       <div className='report-event-container'>
         {!later ? (
@@ -53,15 +48,9 @@ const AddEvent = () => {
               variant='contained'
               color='primary'
               onClick={(e) => {
-                setComplete(false);
                 e.preventDefault();
                 const d = new Date();
-                addEvent({
-                  variables: { date: d.toString() },
-                  refetchQueries: [{ query: GET_EVENTS }],
-                });
-                setsavedDTP(d);
-                setComplete(true);
+                addEvent(d);
               }}
             >
               Report Epilepsy Now
@@ -93,14 +82,8 @@ const AddEvent = () => {
               variant='contained'
               color='primary'
               onClick={(e) => {
-                setComplete(false);
                 e.preventDefault();
-                addEvent({
-                  variables: { date: dtp },
-                  refetchQueries: [{ query: GET_EVENTS }],
-                });
-                setsavedDTP(dtp);
-                setComplete(true);
+                addEvent(dtp);
               }}
             >
               Report Epilepsy Event
@@ -115,4 +98,6 @@ const AddEvent = () => {
   );
 };
 
-export default AddEvent;
+const mapStateToProps = ({ notifications }) => ({ notifications });
+
+export default connect(mapStateToProps, actions)(AddEvent);

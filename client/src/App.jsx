@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  HttpLink,
+} from "@apollo/client";
 import EventList from "./components/EventList";
 import AddEvent from "./components/AddEvent";
 import Calendar from "./components/Calendar";
@@ -21,77 +26,70 @@ import {
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 
-const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
-  cache: new InMemoryCache(),
-});
+class App extends React.Component {
+  componentDidMount() {
+    this.props.fetchUser();
+  }
+  render() {
+    const renderAuthInfo = () => {
+      switch (this.props.auth) {
+        case null:
+          return <FontAwesomeIcon icon={faSpinner} />;
 
-const App = (props) => {
-  useEffect(() => {
-    props.fetchUser();
-  }, []);
+        case false:
+          return (
+            <Button variant='contained' color='secondary' href='/auth/google'>
+              Sign In
+            </Button>
+          );
 
-  const renderAuthInfo = () => {
-    switch (props.auth) {
-      case null:
-        return <FontAwesomeIcon icon={faSpinner} />;
+        default:
+          return (
+            <Button variant='contained' color='secondary' href='/api/logout'>
+              Sign Out
+            </Button>
+          );
+      }
+    };
 
-      case false:
-        return (
-          <Button variant='contained' color='secondary' href='/auth/google'>
-            Sign In
-          </Button>
-        );
-
-      default:
-        return (
-          <Button variant='contained' color='secondary' href='/api/logout'>
-            Sign Out
-          </Button>
-        );
-    }
-  };
-
-  const AppBarHeader = (
-    <AppBar position='static'>
-      <Toolbar>
-        <div className='app-nav'>
-          <div className='nav-app-name'>
-            <Link to='/'>
-              <Typography variant='h6'>Epilepsy Tracker</Typography>
-            </Link>
+    const AppBarHeader = (
+      <AppBar position='static'>
+        <Toolbar>
+          <div className='app-nav'>
+            <div className='nav-app-name'>
+              <Link to='/'>
+                <Typography variant='h6'>Epilepsy Tracker</Typography>
+              </Link>
+            </div>
+            <div className='nav-app-links'>
+              <Link to='/'>
+                <ReportIcon />
+              </Link>
+              <Link to='/table'>
+                <GridOnIcon />
+              </Link>
+              <Link to='/calendar'>
+                <EventIcon />
+              </Link>
+              {renderAuthInfo()}
+            </div>
           </div>
-          <div className='nav-app-links'>
-            <Link to='/'>
-              <ReportIcon />
-            </Link>
-            <Link to='/table'>
-              <GridOnIcon />
-            </Link>
-            <Link to='/calendar'>
-              <EventIcon />
-            </Link>
-            {renderAuthInfo()}
-          </div>
-        </div>
-      </Toolbar>
-    </AppBar>
-  );
+        </Toolbar>
+      </AppBar>
+    );
 
-  const renderLandingContainer = () => {
-    if (!props.auth) {
-      return <LandingPage />;
-    } else {
-      return <AddEvent />;
-    }
-  };
+    const renderLandingContainer = () => {
+      if (!this.props.auth) {
+        return <LandingPage />;
+      } else {
+        return <AddEvent />;
+      }
+    };
 
-  return (
-    <Router>
-      <div className='app-container'>
-        <ApolloProvider client={client}>
+    return (
+      <Router>
+        <div className='app-container'>
           {AppBarHeader}
-
           <Switch>
             <Route path='/table'>
               <EventList />
@@ -103,11 +101,11 @@ const App = (props) => {
               {renderLandingContainer()}
             </Route>
           </Switch>
-        </ApolloProvider>
-      </div>
-    </Router>
-  );
-};
+        </div>
+      </Router>
+    );
+  }
+}
 
 const mapStateToProps = (state) => {
   return {
