@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FETCH_USER, GET_EVENTS, EVENT_ADDED } from "./types";
+import { FETCH_USER, GET_EVENTS } from "./types";
 
 export const fetchUser = () => async (dispatch) => {
   const user = await axios.get("/api/current_user");
@@ -18,9 +18,9 @@ export const getEvents = () => async (dispatch) => {
 };
 
 export const addEvent = ({ date, notes }) => async (dispatch) => {
-  const test = await axios.post("/api/event", { date, notes });
+  await axios.post("/api/event", { date, notes });
 };
 
 export const deleteEvent = (id) => async (dispatch) => {
-  const test = await axios.post("/api/event", { id });
+  await axios.delete(`/api/event/${id}`);
 };

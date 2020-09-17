@@ -22,7 +22,10 @@ module.exports = (app) => {
     res.send("Confirmed");
   });
 
-  app.delete("/api/event", requireLogin, (req, res) => {
-    // console.log("Deleting Event", req, res);
+  app.delete("/api/event/:id", requireLogin, (req, res) => {
+    const { id } = req.params;
+    Event.findByIdAndDelete(id, function (err, data) {
+      res.send(data);
+    });
   });
 };

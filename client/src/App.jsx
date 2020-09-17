@@ -1,10 +1,4 @@
-import React, { useEffect } from "react";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  HttpLink,
-} from "@apollo/client";
+import React from "react";
 import EventList from "./components/EventList";
 import AddEvent from "./components/AddEvent";
 import Calendar from "./components/Calendar";
@@ -20,11 +14,7 @@ import "./style/styles.scss";
 import { connect } from "react-redux";
 import * as actions from "./actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faSignInAlt,
-  faSignOutAlt,
-  faSpinner,
-} from "@fortawesome/free-solid-svg-icons";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 class App extends React.Component {
   componentDidMount() {
