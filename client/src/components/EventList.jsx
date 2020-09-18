@@ -53,9 +53,9 @@ class EventList extends React.Component {
 
     const x = data.map((a) => moment(a.date).format("YYYYMMDD"));
     const sortedData = x.filter((v, i, a) => a.indexOf(v) === i);
-
     sortedData.sort((a, b) => {
-      return sortDirection === "asc" ? 1 : -1;
+      if (sortDirection === "asc") return +a - b > 0 ? 1 : -1;
+      else return +b - a > 0 ? 1 : -1;
     });
 
     return (

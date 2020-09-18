@@ -18,11 +18,20 @@ class AddEvent extends React.Component {
     };
   }
 
+  componentDidMount() {
+    // console.log("Rendering once");
+    // initialData.forEach((x) => {
+    //   const d = moment(x.date, "DD/MM/YYYY hh:mmA").utcOffset("-1250");
+    //   this.props.addEvent({ notes: x.notes, date: d.toDate() });
+    // });
+  }
+
   render() {
     const { dtp, saveddtp, later, showNotification, notes } = this.state;
 
     const onChange = (date) => this.setState({ dtp: date });
     const addEvent = (date) => {
+      console.log(date);
       this.props.addEvent({ notes: notes, date: date });
       this.setState({
         saveddtp: date,
@@ -43,17 +52,6 @@ class AddEvent extends React.Component {
         onChange={(e) => this.setState({ notes: e.target.value })}
       />
     );
-
-    //   useEffect(() => {
-    //     console.log("Rendering once")
-    // initialData.forEach(date => {
-    //     const d = moment(date,"DD/MM/YYYY hh:mmA");
-    //     addEvent({
-    //               variables: { date: d },
-    //               refetchQueries: [{ query: GET_EVENTS }],
-    //             });
-    //   })
-    //   }, [])
 
     return (
       <React.Fragment>
