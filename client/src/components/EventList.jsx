@@ -89,8 +89,13 @@ class EventList extends React.Component {
                   <TableCell>{date.format("MMMM Do YYYY")}</TableCell>
                   <TableCell>{date.format("ddd")}</TableCell>
                   <TableCell className='event-button-cell'>
-                    {timingsByDate[date.format("MMMM Do YYYY")].event.map(
-                      (e, i) => {
+                    {timingsByDate[date.format("MMMM Do YYYY")].event
+                      .sort((a, b) => {
+                        const a1 = moment(a.date);
+                        const b1 = moment(b.date);
+                        return a1.isSameOrAfter(b1) ? 1 : -1;
+                      })
+                      .map((e, i) => {
                         return (
                           <DeleteEvent
                             refreshList={this.props.getEvents}
@@ -98,8 +103,7 @@ class EventList extends React.Component {
                             event={e}
                           ></DeleteEvent>
                         );
-                      }
-                    )}
+                      })}
                   </TableCell>
                 </TableRow>
               );
