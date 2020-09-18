@@ -29,15 +29,13 @@ class DeleteEvent extends React.Component {
       this.setState({ open: false });
     };
     const time = moment(this.props.event.date).format("h:mm:ss a");
-    const date = moment(this.props.event.date).format("MMM da");
-
+    const date = moment(this.props.event.date).format("MMM d");
+    const notes = this.props.event.notes || "No note added";
     return (
       <React.Fragment>
         <Button
           className='event-button'
-          startIcon={<CloseIcon />}
           variant='contained'
-          color='secondary'
           onClick={handleClickOpen}
         >
           {time}
@@ -48,19 +46,13 @@ class DeleteEvent extends React.Component {
           aria-labelledby='alert-dialog-title'
           aria-describedby='alert-dialog-description'
         >
-          <DialogTitle id='alert-dialog-title'>
-            {"Delete Epilepsy Event"}
-          </DialogTitle>
+          <DialogTitle id='alert-dialog-title'>{`${date} at ${time}`}</DialogTitle>
           <DialogContent>
             <DialogContentText id='alert-dialog-description'>
-              Confirm that you want to delete epilepsy event at {time} on {date}
-              ? (This action is irreversible)
+              <p>Notes : {notes}</p>
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color='primary'>
-              Cancel
-            </Button>
             <Button
               startIcon={<DeleteIcon />}
               onClick={(e) => {
@@ -69,10 +61,13 @@ class DeleteEvent extends React.Component {
                 this.props.refreshList();
                 handleClose();
               }}
-              color='primary'
+              color='secondary'
               autoFocus
             >
               Delete Event
+            </Button>
+            <Button onClick={handleClose} color='primary'>
+              Cancel
             </Button>
           </DialogActions>
         </Dialog>

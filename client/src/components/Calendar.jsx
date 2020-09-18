@@ -8,6 +8,9 @@ import _ from "lodash";
 import * as actions from "../actions";
 import { connect } from "react-redux";
 
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+
 class Calendar extends React.Component {
   constructor(props) {
     super(props);
@@ -44,13 +47,43 @@ class Calendar extends React.Component {
       }
     });
 
+    let yearsAvailable =
+      (this.props.events &&
+        this.props.events.map((a) => moment(a.date).format("YYYY"))) ||
+      [];
+
+    yearsAvailable = _.sortedUniq(yearsAvailable);
+
+    const buttons = (
+      <ButtonGroup
+        id='calendar-year-buttons'
+        orientation='vertical'
+        variant='contained'
+        color='primary'
+        aria-label='contained primary button group'
+      >
+        {yearsAvailable.map((year, id) => (
+          <Button
+            key={id}
+            onClick={(e) =>
+              this.setState({ currentYear: e.target.textContent })
+            }
+          >
+            {year}
+          </Button>
+        ))}
+      </ButtonGroup>
+    );
+
     return (
       <div className='calendar-container'>
+        {buttons}
         <div className={`react-calendar-heatmap`}>
           <CalendarHeatmap
             startDate={new Date(`${currentYear}-01-01`)}
             endDate={new Date(`${currentYear}-12-01`)}
             values={Object.values(timingsByDate)}
+            horizontal={false}
             showWeekdayLabels={true}
             weekdayLabels={["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]}
             tooltipDataAttrs={(value) => {

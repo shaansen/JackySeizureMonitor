@@ -14,20 +14,34 @@ class AddEvent extends React.Component {
       saveddtp: null,
       later: false,
       showNotification: false,
+      notes: "",
     };
   }
 
   render() {
-    const { dtp, saveddtp, later, showNotification } = this.state;
+    const { dtp, saveddtp, later, showNotification, notes } = this.state;
 
     const onChange = (date) => this.setState({ dtp: date });
     const addEvent = (date) => {
-      this.props.addEvent({ notes: "Something" });
+      this.props.addEvent({ notes: notes, date: date });
       this.setState({
         saveddtp: date,
         showNotification: true,
       });
     };
+
+    const textField = (
+      <TextField
+        id='outlined-multiline-static'
+        label='Notes'
+        multiline
+        rows={4}
+        value={notes}
+        placeholder='Enter details like severity, medicines administered, injuries, etc.'
+        variant='outlined'
+        onChange={(e) => this.setState({ notes: e.target.value })}
+      />
+    );
 
     //   useEffect(() => {
     //     console.log("Rendering once")
@@ -51,6 +65,7 @@ class AddEvent extends React.Component {
         <div className='report-event-container'>
           {!later ? (
             <div className='report-event-now'>
+              {textField}
               <Button
                 variant='contained'
                 color='primary'
@@ -69,6 +84,7 @@ class AddEvent extends React.Component {
           ) : (
             <div className='report-event-custom'>
               <h4>Report at custom time</h4>
+              {textField}
               {/* <Datetime value={dtp} defaultValue={dtp} onChange={onChange} /> */}
               <TextField
                 id='datetime-local'
