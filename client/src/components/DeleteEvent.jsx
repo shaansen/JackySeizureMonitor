@@ -27,8 +27,12 @@ class DeleteEvent extends React.Component {
     const handleClose = () => {
       this.setState({ open: false });
     };
-    const time = moment(this.props.event.date).format("h:mm:ss a");
-    const date = moment(this.props.event.date).format("MMM d");
+    const time = moment(this.props.event.date)
+      .tz(moment.tz.guess())
+      .format("h:mm:ss a");
+    const date = moment(this.props.event.date)
+      .tz(moment.tz.guess())
+      .format("MMM d");
     const notes = this.props.event.notes || "No note added";
     return (
       <React.Fragment>

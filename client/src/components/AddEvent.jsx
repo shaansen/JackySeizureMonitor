@@ -57,9 +57,11 @@ class AddEvent extends React.Component {
       <React.Fragment>
         <div className='report-created-alert'>
           {showNotification &&
-            `Successfully saved an event on Date ${moment(saveddtp).format(
-              "YYYY-MM-DD"
-            )} at Time ${moment(saveddtp).format("hh:mm:ss a")}`}
+            `Successfully saved an event on Date ${moment(saveddtp)
+              .tz(moment.tz.guess())
+              .format("YYYY-MM-DD")} at Time ${moment(saveddtp)
+              .tz(moment.tz.guess())
+              .format("hh:mm:ss a")}`}
         </div>
         <div className='report-event-container'>
           {!later ? (
@@ -89,12 +91,16 @@ class AddEvent extends React.Component {
                 id='datetime-local'
                 type='datetime-local'
                 defaultValue={
-                  moment(dtp).format("YYYY-MM-DD") +
+                  moment(dtp).tz(moment.tz.guess()).format("YYYY-MM-DD") +
                   "T" +
-                  moment(dtp).format("HH:mm")
+                  moment(dtp).tz(moment.tz.guess()).format("HH:mm")
                 }
                 onChange={(e) =>
-                  onChange(moment(e.target.value, "YYYY-MM-DDTHH:mm"))
+                  onChange(
+                    moment(e.target.value, "YYYY-MM-DDTHH:mm").tz(
+                      moment.tz.guess()
+                    )
+                  )
                 }
                 InputLabelProps={{
                   shrink: true,

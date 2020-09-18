@@ -31,7 +31,7 @@ class EventList extends React.Component {
     const timingsByDate = {};
 
     _.forEach(data, (d) => {
-      const date = moment(d.date).format("MMMM Do YYYY");
+      const date = moment(d.date).tz(moment.tz.guess()).format("MMMM Do YYYY");
 
       if (timingsByDate[date] !== undefined) {
         timingsByDate[date].count = timingsByDate[date].count + 1;
@@ -51,7 +51,9 @@ class EventList extends React.Component {
       });
     };
 
-    const x = data.map((a) => moment(a.date).format("YYYYMMDD"));
+    const x = data.map((a) =>
+      moment(a.date).tz(moment.tz.guess()).format("YYYYMMDD")
+    );
     const sortedData = x.filter((v, i, a) => a.indexOf(v) === i);
     sortedData.sort((a, b) => {
       if (sortDirection === "asc") return +a - b > 0 ? 1 : -1;
@@ -80,7 +82,7 @@ class EventList extends React.Component {
           </TableHead>
           <TableBody>
             {sortedData.map((event, index) => {
-              const date = moment(event);
+              const date = moment(event).tz(moment.tz.guess());
               return (
                 <TableRow key={index}>
                   <TableCell>{index + 1}</TableCell>

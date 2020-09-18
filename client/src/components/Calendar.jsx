@@ -14,7 +14,7 @@ class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentYear: moment(new Date()).format("YYYY"),
+      currentYear: moment(new Date()).tz(moment.tz.guess()).format("YYYY"),
       currentTooltip: null,
     };
   }
@@ -32,8 +32,8 @@ class Calendar extends React.Component {
     const timingsByDate = {};
 
     _.forEach(data.events, (d) => {
-      if (moment(d.date).format("YYYY") === currentYear) {
-        const date = moment(d.date).format("YYYY-MM-DD");
+      if (moment(d.date).tz(moment.tz.guess()).format("YYYY") === currentYear) {
+        const date = moment(d.date).tz(moment.tz.guess()).format("YYYY-MM-DD");
 
         if (timingsByDate[date] !== undefined) {
           timingsByDate[date].count = timingsByDate[date].count + 1;
@@ -48,7 +48,9 @@ class Calendar extends React.Component {
 
     let yearsAvailable =
       (this.props.events &&
-        this.props.events.map((a) => moment(a.date).format("YYYY"))) ||
+        this.props.events.map((a) =>
+          moment(a.date).tz(moment.tz.guess()).format("YYYY")
+        )) ||
       [];
 
     yearsAvailable = yearsAvailable
@@ -57,8 +59,12 @@ class Calendar extends React.Component {
 
     const renderTooltipInfo = () => {
       if (currentTooltip) {
-        const day = moment(currentTooltip.date).format("DD");
-        const month = moment(currentTooltip.date).format("MMM");
+        const day = moment(currentTooltip.date)
+          .tz(moment.tz.guess())
+          .format("DD");
+        const month = moment(currentTooltip.date)
+          .tz(moment.tz.guess())
+          .format("MMM");
         const times = currentTooltip.count;
         return (
           <div className='tooltip-info-container'>
@@ -75,7 +81,6 @@ class Calendar extends React.Component {
 
     const buttons = (
       <div id='calendar-year-buttons'>
-        {moment.tz.guess()}
         <ButtonGroup
           orientation='vertical'
           variant='contained'
