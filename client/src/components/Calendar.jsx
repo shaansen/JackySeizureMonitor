@@ -2,7 +2,6 @@ import "react-calendar-heatmap/dist/styles.css";
 import React from "react";
 import "./Calendar.css";
 import CalendarHeatmap from "react-calendar-heatmap";
-import ReactTooltip from "react-tooltip";
 import moment from "moment";
 import _ from "lodash";
 import * as actions from "../actions";
@@ -21,7 +20,6 @@ class Calendar extends React.Component {
   }
 
   componentDidMount() {
-    ReactTooltip.rebuild();
     this.props.getEvents();
   }
 
@@ -78,14 +76,17 @@ class Calendar extends React.Component {
         <ButtonGroup
           orientation='vertical'
           variant='contained'
-          color='primary'
           aria-label='contained primary button group'
         >
           {yearsAvailable.map((year, id) => (
             <Button
               key={id}
+              color={year === currentYear ? "secondary" : "default"}
               onClick={(e) =>
-                this.setState({ currentYear: e.target.textContent })
+                this.setState({
+                  currentYear: e.target.textContent,
+                  currentTooltip: null,
+                })
               }
             >
               {year}
@@ -107,16 +108,6 @@ class Calendar extends React.Component {
             horizontal={false}
             showWeekdayLabels={true}
             weekdayLabels={["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]}
-            tooltipDataAttrs={(value) => {
-              if (value.date !== null) {
-                return {
-                  "data-tip": `${moment(value.date).format("MMM Do")} - ${
-                    value.count || 0
-                  } ${value.count === 1 ? "time" : "times"}`,
-                  "data-iscapture": true,
-                };
-              }
-            }}
             onClick={(value) => this.setState({ currentTooltip: value })}
             classForValue={(value) => {
               if (!value) {
@@ -125,7 +116,6 @@ class Calendar extends React.Component {
               return `color-scale-${value.count}`;
             }}
           />
-          <ReactTooltip />
         </div>
       </div>
     );
