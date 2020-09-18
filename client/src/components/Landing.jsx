@@ -33,7 +33,7 @@ const LandingPage = () => {
         </ListItem>
       </List>
       <Button variant='contained' color='secondary' href='/auth/google'>
-        Sign In
+        Sign In with Google
       </Button>
     </div>
   );

@@ -28,11 +28,7 @@ class App extends React.Component {
           return <FontAwesomeIcon icon={faSpinner} />;
 
         case false:
-          return (
-            <Button variant='contained' color='secondary' href='/auth/google'>
-              Sign In
-            </Button>
-          );
+          return null;
 
         default:
           return (
