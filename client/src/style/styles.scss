@@ -70,6 +70,7 @@
 }
 
 .calendar-container {
+  margin-top: 56px;
   padding: 10px 10px 10px 110px;
   overflow-x: auto;
   height: 100%;
@@ -138,4 +139,8 @@ textarea {
     margin: -3px;
     padding: 0;
   }
+}
+
+.event-list-container {
+  margin-top: 56px;
 }

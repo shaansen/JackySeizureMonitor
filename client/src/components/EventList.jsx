@@ -59,7 +59,7 @@ class EventList extends React.Component {
     });
 
     return (
-      <TableContainer component={Paper}>
+      <TableContainer className='event-list-container' component={Paper}>
         <Table stickyHeader aria-label='simple table'>
           <TableHead>
             <TableRow>
