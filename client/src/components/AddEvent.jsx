@@ -21,7 +21,7 @@ class AddEvent extends React.Component {
   componentDidMount() {
     // console.log("Rendering once");
     // initialData.forEach((x) => {
-    //   const d = moment(x.date, "DD/MM/YYYY hh:mmA").utcOffset("-1250");
+    //   const d = moment(x.date, "DD/MM/YYYY hh:mmA");
     //   this.props.addEvent({ notes: x.notes, date: d.toDate() });
     // });
   }

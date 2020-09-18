@@ -2,7 +2,7 @@ import "react-calendar-heatmap/dist/styles.css";
 import React from "react";
 import "./Calendar.css";
 import CalendarHeatmap from "react-calendar-heatmap";
-import moment from "moment";
+import moment from "moment-timezone";
 import _ from "lodash";
 import * as actions from "../actions";
 import { connect } from "react-redux";
@@ -75,6 +75,7 @@ class Calendar extends React.Component {
 
     const buttons = (
       <div id='calendar-year-buttons'>
+        {moment.tz.guess()}
         <ButtonGroup
           orientation='vertical'
           variant='contained'
