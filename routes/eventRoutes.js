@@ -6,7 +6,7 @@ const Event = mongoose.model("event");
 
 module.exports = (app) => {
   app.get("/api/event", requireLogin, (req, res) => {
-    Event.find({ _user: req.user._id }, function (err, events) {
+    Event.find({}, function (err, events) {
       res.send(events);
     });
   });

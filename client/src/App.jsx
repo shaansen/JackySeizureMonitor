@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import * as actions from "./actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 class App extends React.Component {
   componentDidMount() {
@@ -35,9 +36,20 @@ class App extends React.Component {
 
         default:
           return (
-            <Button variant='contained' color='secondary' href='/api/logout'>
-              Sign Out
-            </Button>
+            <React.Fragment>
+              <Link to='/'>
+                <ReportIcon />
+              </Link>
+              <Link to='/table'>
+                <GridOnIcon />
+              </Link>
+              <Link to='/calendar'>
+                <EventIcon />
+              </Link>
+              <Button variant='contained' color='secondary' href='/api/logout'>
+                Sign Out
+              </Button>
+            </React.Fragment>
           );
       }
     };
@@ -51,35 +63,23 @@ class App extends React.Component {
                 <Typography variant='h6'>Epilepsy Tracker</Typography>
               </Link>
             </div>
-            <div className='nav-app-links'>
-              <Link to='/'>
-                <ReportIcon />
-              </Link>
-              <Link to='/table'>
-                <GridOnIcon />
-              </Link>
-              <Link to='/calendar'>
-                <EventIcon />
-              </Link>
-              {renderAuthInfo()}
-            </div>
+            <div className='nav-app-links'>{renderAuthInfo()}</div>
           </div>
         </Toolbar>
       </AppBar>
     );
 
-    const renderLandingContainer = () => {
-      if (!this.props.auth) {
+    const renderContent = () => {
+      if (this.props.auth == null) {
+        return (
+          <div>
+            <CircularProgress />
+          </div>
+        );
+      } else if (this.props.auth === false) {
         return <LandingPage />;
       } else {
-        return <AddEvent />;
-      }
-    };
-
-    return (
-      <Router>
-        <div className='app-container'>
-          {AppBarHeader}
+        return (
           <Switch>
             <Route path='/table'>
               <EventList />
@@ -88,9 +88,18 @@ class App extends React.Component {
               <Calendar />
             </Route>
             <Route exact path='/'>
-              {renderLandingContainer()}
+              <AddEvent />
             </Route>
           </Switch>
+        );
+      }
+    };
+
+    return (
+      <Router>
+        <div className='app-container'>
+          {AppBarHeader}
+          {renderContent()}
         </div>
       </Router>
     );
