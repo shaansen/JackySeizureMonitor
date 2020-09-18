@@ -51,10 +51,9 @@ class EventList extends React.Component {
       });
     };
 
-    const sortedData = _.sortedUniqBy(
-      data.map((a) => a.date),
-      (a) => moment(a).format("YYYYMMDD")
-    );
+    const x = data.map((a) => moment(a.date).format("YYYYMMDD"));
+    const sortedData = x.filter((v, i, a) => a.indexOf(v) === i);
+
     sortedData.sort((a, b) => {
       return sortDirection === "asc" ? 1 : -1;
     });

@@ -51,7 +51,7 @@ class Calendar extends React.Component {
         this.props.events.map((a) => moment(a.date).format("YYYY"))) ||
       [];
 
-    yearsAvailable = _.sortedUniq(yearsAvailable);
+    yearsAvailable = yearsAvailable.filter((v, i, a) => a.indexOf(v) === i);
 
     const renderTooltipInfo = () => {
       if (currentTooltip) {

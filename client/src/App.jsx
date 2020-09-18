@@ -55,7 +55,7 @@ class App extends React.Component {
     };
 
     const AppBarHeader = (
-      <AppBar position='static'>
+      <AppBar position='fixed'>
         <Toolbar>
           <div className='app-nav'>
             <div className='nav-app-name'>
