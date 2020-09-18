@@ -16,6 +16,7 @@ class Calendar extends React.Component {
     super(props);
     this.state = {
       currentYear: moment(new Date()).format("YYYY"),
+      currentTooltip: null,
     };
   }
 
@@ -25,7 +26,7 @@ class Calendar extends React.Component {
   }
 
   render() {
-    const { currentYear } = this.state;
+    const { currentYear, currentTooltip } = this.state;
     const data = {
       events: this.props.events,
     };
@@ -54,25 +55,45 @@ class Calendar extends React.Component {
 
     yearsAvailable = _.sortedUniq(yearsAvailable);
 
+    const renderTooltipInfo = () => {
+      if (currentTooltip) {
+        const day = moment(currentTooltip.date).format("DD");
+        const month = moment(currentTooltip.date).format("MMM");
+        const times = currentTooltip.count;
+        return (
+          <div className='tooltip-info-container'>
+            <h1>{day}</h1>
+            <h3>{month}</h3>
+            <p>
+              {times} {times === 1 ? "time" : "times"}
+            </p>
+          </div>
+        );
+      }
+      return null;
+    };
+
     const buttons = (
-      <ButtonGroup
-        id='calendar-year-buttons'
-        orientation='vertical'
-        variant='contained'
-        color='primary'
-        aria-label='contained primary button group'
-      >
-        {yearsAvailable.map((year, id) => (
-          <Button
-            key={id}
-            onClick={(e) =>
-              this.setState({ currentYear: e.target.textContent })
-            }
-          >
-            {year}
-          </Button>
-        ))}
-      </ButtonGroup>
+      <div id='calendar-year-buttons'>
+        <ButtonGroup
+          orientation='vertical'
+          variant='contained'
+          color='primary'
+          aria-label='contained primary button group'
+        >
+          {yearsAvailable.map((year, id) => (
+            <Button
+              key={id}
+              onClick={(e) =>
+                this.setState({ currentYear: e.target.textContent })
+              }
+            >
+              {year}
+            </Button>
+          ))}
+        </ButtonGroup>
+        {renderTooltipInfo()}
+      </div>
     );
 
     return (
@@ -96,6 +117,7 @@ class Calendar extends React.Component {
                 };
               }
             }}
+            onClick={(value) => this.setState({ currentTooltip: value })}
             classForValue={(value) => {
               if (!value) {
                 return "color-empty";

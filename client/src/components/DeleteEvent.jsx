@@ -6,7 +6,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import CloseIcon from "@material-ui/icons/Close";
 import DeleteIcon from "@material-ui/icons/Delete";
 import * as actions from "../actions";
 import { connect } from "react-redux";
@@ -49,7 +48,7 @@ class DeleteEvent extends React.Component {
           <DialogTitle id='alert-dialog-title'>{`${date} at ${time}`}</DialogTitle>
           <DialogContent>
             <DialogContentText id='alert-dialog-description'>
-              <p>Notes : {notes}</p>
+              Notes : {notes}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -61,12 +60,11 @@ class DeleteEvent extends React.Component {
                 this.props.refreshList();
                 handleClose();
               }}
-              color='secondary'
               autoFocus
             >
               Delete Event
             </Button>
-            <Button onClick={handleClose} color='primary'>
+            <Button onClick={handleClose} color='secondary'>
               Cancel
             </Button>
           </DialogActions>

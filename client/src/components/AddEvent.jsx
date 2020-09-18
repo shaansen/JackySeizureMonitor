@@ -27,6 +27,7 @@ class AddEvent extends React.Component {
       this.setState({
         saveddtp: date,
         showNotification: true,
+        notes: "",
       });
     };
 
