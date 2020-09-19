@@ -1,26 +1,42 @@
 import React from "react";
+import "./style/styles.scss";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { connect } from "react-redux";
+
+import * as actions from "./actions";
 import EventList from "./components/EventList";
 import AddEvent from "./components/AddEvent";
 import Calendar from "./components/Calendar";
 import LandingPage from "./components/Landing";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
-import ReportIcon from "@material-ui/icons/Report";
-import GridOnIcon from "@material-ui/icons/GridOn";
-import EventIcon from "@material-ui/icons/Event";
-import "./style/styles.scss";
-import Button from "@material-ui/core/Button";
-import "./style/styles.scss";
-import { connect } from "react-redux";
-import * as actions from "./actions";
+import Drawer from "./components/Drawer";
+
+import {
+  AppBar,
+  Button,
+  CircularProgress,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import MenuIcon from "@material-ui/icons/Menu";
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sidebarOpen: false,
+    };
+  }
+
   componentDidMount() {
     this.props.fetchUser();
   }
+
+  toggleSideBar = (val) => {
+    this.setState({ sidebarOpen: val });
+  };
+
   render() {
     const renderAuthInfo = () => {
       switch (this.props.auth) {
@@ -32,20 +48,9 @@ class App extends React.Component {
 
         default:
           return (
-            <React.Fragment>
-              <Link to='/'>
-                <ReportIcon />
-              </Link>
-              <Link to='/table'>
-                <GridOnIcon />
-              </Link>
-              <Link to='/calendar'>
-                <EventIcon />
-              </Link>
-              <Button variant='contained' color='secondary' href='/api/logout'>
-                Sign Out
-              </Button>
-            </React.Fragment>
+            <Button variant='contained' color='secondary' href='/api/logout'>
+              Sign Out
+            </Button>
           );
       }
     };
@@ -55,8 +60,9 @@ class App extends React.Component {
         <Toolbar>
           <div className='app-nav'>
             <div className='nav-app-name'>
+              <MenuIcon onClick={() => this.setState({ sidebarOpen: true })} />
               <Link to='/'>
-                <Typography variant='h6'>Epilepsy Tracker</Typography>
+                <Typography variant='h6'>Epilepsy Journal</Typography>
               </Link>
             </div>
             <div className='nav-app-links'>{renderAuthInfo()}</div>
@@ -76,17 +82,19 @@ class App extends React.Component {
         return <LandingPage />;
       } else {
         return (
-          <Switch>
-            <Route path='/table'>
-              <EventList />
-            </Route>
-            <Route path='/calendar'>
-              <Calendar />
-            </Route>
-            <Route exact path='/'>
-              <AddEvent />
-            </Route>
-          </Switch>
+          <React.Fragment>
+            <Switch>
+              <Route path='/table'>
+                <EventList />
+              </Route>
+              <Route path='/calendar'>
+                <Calendar />
+              </Route>
+              <Route exact path='/'>
+                <AddEvent />
+              </Route>
+            </Switch>
+          </React.Fragment>
         );
       }
     };
@@ -94,7 +102,12 @@ class App extends React.Component {
     return (
       <Router>
         <div className='app-container'>
+          <Drawer
+            sidebarOpen={this.state.sidebarOpen}
+            toggleSideBar={this.toggleSideBar}
+          />
           {AppBarHeader}
+
           {renderContent()}
         </div>
       </Router>

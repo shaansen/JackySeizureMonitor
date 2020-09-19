@@ -32,7 +32,6 @@ class AddEvent extends React.Component {
 
     const onChange = (date) => this.setState({ dtp: date });
     const addEvent = (date) => {
-      console.log(date);
       this.props.addEvent({ notes: notes, date: date });
       this.setState({
         saveddtp: date,
@@ -77,7 +76,7 @@ class AddEvent extends React.Component {
                   addEvent(d);
                 }}
               >
-                Report Epilepsy Now
+                Press to Report Epilepsy Now
               </Button>
               <Button onClick={() => this.setState({ later: true })}>
                 Report event at custom time instead
@@ -115,7 +114,7 @@ class AddEvent extends React.Component {
                   addEvent(dtp);
                 }}
               >
-                Report Epilepsy Event
+                Press to Report Epilepsy Event
               </Button>
               <Button onClick={() => this.setState({ later: false })}>
                 Report event now instead

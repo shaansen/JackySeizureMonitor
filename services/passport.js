@@ -25,14 +25,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       const email = profile.emails[0].value;
-      const validEmails = [
-        "shantanu.sengupta2008@gmail.com",
-        "sunit.sengupta2007@gmail.com",
-        "madseng18@gmail.com",
-        "madhumita.sengupta18@gmail.com",
-        "2102ritu@gmail.com",
-      ];
-      if (validEmails.indexOf(email) > -1) {
+      if (keys.validEmails.indexOf(email) > -1) {
         const existingUser = await User.findOne({ googleId: profile.id });
         if (existingUser) {
           return done(null, existingUser);

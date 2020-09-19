@@ -10,6 +10,7 @@
   width: 100%;
   justify-content: space-between;
   flex-direction: row;
+  align-items: center;
 
   a,
   a:visited,
@@ -20,6 +21,17 @@
   .nav-app-links {
     a {
       padding: 0 10px;
+    }
+  }
+
+  .nav-app-name {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    h6 {
+      margin-left: 20px;
     }
   }
 }
@@ -49,7 +61,7 @@
 
     button.MuiButton-containedPrimary {
       margin: 10px 0;
-      font-size: 30px;
+      font-size: 20px;
     }
   }
   .report-event-custom {
@@ -143,4 +155,9 @@ textarea {
 
 .event-list-container {
   margin-top: 56px;
+}
+
+.you-can {
+  font-size: 14px;
+  margin: 10px;
 }
