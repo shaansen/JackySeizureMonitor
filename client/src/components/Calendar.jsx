@@ -3,10 +3,9 @@ import React from "react";
 import "./Calendar.css";
 import CalendarHeatmap from "react-calendar-heatmap";
 import moment from "moment-timezone";
-import _ from "lodash";
 import * as actions from "../actions";
 import { connect } from "react-redux";
-
+import { getCount } from "./util.js";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 
@@ -25,37 +24,10 @@ class Calendar extends React.Component {
 
   render() {
     const { currentYear, currentTooltip } = this.state;
-    const data = {
-      events: this.props.events,
-    };
-
-    const timingsByDate = {};
-
-    _.forEach(data.events, (d) => {
-      if (moment(d.date).tz(moment.tz.guess()).format("YYYY") === currentYear) {
-        const date = moment(d.date).tz(moment.tz.guess()).format("YYYY-MM-DD");
-
-        if (timingsByDate[date] !== undefined) {
-          timingsByDate[date].count = timingsByDate[date].count + 1;
-        } else {
-          timingsByDate[date] = {
-            count: 1,
-            date: date,
-          };
-        }
-      }
-    });
-
-    let yearsAvailable =
-      (this.props.events &&
-        this.props.events.map((a) =>
-          moment(a.date).tz(moment.tz.guess()).format("YYYY")
-        )) ||
-      [];
-
-    yearsAvailable = yearsAvailable
-      .filter((v, i, a) => a.indexOf(v) === i)
-      .sort();
+    const { timingsByDate, yearsAvailable } = getCount(
+      this.props.events,
+      currentYear
+    );
 
     const renderTooltipInfo = () => {
       if (currentTooltip) {

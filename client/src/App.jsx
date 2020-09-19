@@ -9,6 +9,7 @@ import AddEvent from "./components/AddEvent";
 import Calendar from "./components/Calendar";
 import LandingPage from "./components/Landing";
 import Drawer from "./components/Drawer";
+import Trend from "./components/Trend";
 
 import {
   AppBar,
@@ -60,7 +61,11 @@ class App extends React.Component {
         <Toolbar>
           <div className='app-nav'>
             <div className='nav-app-name'>
-              <MenuIcon onClick={() => this.setState({ sidebarOpen: true })} />
+              {!!this.props.auth && (
+                <MenuIcon
+                  onClick={() => this.setState({ sidebarOpen: true })}
+                />
+              )}
               <Link to='/'>
                 <Typography variant='h6'>Epilepsy Journal</Typography>
               </Link>
@@ -72,7 +77,7 @@ class App extends React.Component {
     );
 
     const renderContent = () => {
-      if (this.props.auth == null) {
+      if (this.props.auth === null) {
         return (
           <div>
             <CircularProgress />
@@ -89,6 +94,9 @@ class App extends React.Component {
               </Route>
               <Route path='/calendar'>
                 <Calendar />
+              </Route>
+              <Route path='/trend'>
+                <Trend />
               </Route>
               <Route exact path='/'>
                 <AddEvent />

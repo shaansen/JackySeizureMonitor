@@ -53,7 +53,20 @@ class DrawerComponent extends React.Component {
             <ListItemIcon>
               <EventIcon />
             </ListItemIcon>
-            <ListItemText primary='View Patterns/Trends' />
+            <ListItemText primary='View Calendar' />
+          </ListItem>
+
+          <ListItem
+            button
+            onClick={() => {
+              this.props.toggleSideBar(false);
+              this.props.history.push("/trend");
+            }}
+          >
+            <ListItemIcon>
+              <EventIcon />
+            </ListItemIcon>
+            <ListItemText primary='View Trends' />
           </ListItem>
         </List>
       </div>
