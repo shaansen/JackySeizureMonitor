@@ -120,7 +120,6 @@ class Example extends PureComponent {
             <CartesianGrid strokeDasharray='3 3' />
             <XAxis dataKey='dateFriendly' angle={-45} />
             <YAxis />
-            <Tooltip />
             <Legend />
             <Line
               type='monotone'
