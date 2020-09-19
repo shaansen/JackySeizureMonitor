@@ -104,7 +104,11 @@ class Example extends PureComponent {
         {buttons}
         <ResponsiveContainer width='100%' height='40%'>
           <LineChart
-            data={Object.values(timingsByDate)}
+            data={Object.values(timingsByDate).sort((a, b) => {
+              const a1 = moment(a.date, "YYYY-MM-DD");
+              const b1 = moment(b.date, "YYYY-MM-DD");
+              return a1.isSameOrAfter(b1) ? 1 : -1;
+            })}
             margin={{
               top: 40,
               right: 40,
