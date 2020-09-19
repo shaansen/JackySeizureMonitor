@@ -16,11 +16,23 @@ import { getCount } from "./util.js";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import Chip from "@material-ui/core/Chip";
+
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
+
 class Example extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       currentYear: moment(new Date()).tz(moment.tz.guess()).format("YYYY"),
+      currentDateObject: null,
     };
   }
 
@@ -28,11 +40,17 @@ class Example extends PureComponent {
     this.props.getEvents();
   }
   render() {
-    const { currentYear } = this.state;
+    const { currentYear, currentDateObject } = this.state;
     const { timingsByDate, yearsAvailable } = getCount(
       this.props.events,
       currentYear
     );
+
+    const occurrence =
+      currentDateObject &&
+      `${currentDateObject.count} ${
+        currentDateObject.count === 1 ? "time" : "times"
+      }`;
 
     const buttons = (
       <ButtonGroup
@@ -55,6 +73,32 @@ class Example extends PureComponent {
       </ButtonGroup>
     );
 
+    const details = currentDateObject !== null && (
+      <div className='trend-detail-container'>
+        <Card variant='outlined'>
+          <CardContent>
+            <Typography color='textSecondary' gutterBottom>
+              Jacky had epilepsy on
+            </Typography>
+            <Typography variant='h5' component='h2'>
+              {currentDateObject.dateFriendly}
+              <Chip label={occurrence} />
+            </Typography>
+            <List dense={true} aria-label='main mailbox folders'>
+              {currentDateObject.time.map((a, i) => (
+                <ListItem key={i} button>
+                  <ListItemIcon>
+                    <FiberManualRecordIcon />
+                  </ListItemIcon>
+                  <ListItemText secondary={a} />
+                </ListItem>
+              ))}
+            </List>
+          </CardContent>
+        </Card>
+      </div>
+    );
+
     return (
       <div className='trend-container'>
         {buttons}
@@ -66,6 +110,11 @@ class Example extends PureComponent {
               right: 40,
               left: 0,
               bottom: 5,
+            }}
+            onClick={(e) => {
+              this.setState({
+                currentDateObject: e && e.activePayload[0].payload,
+              });
             }}
           >
             <CartesianGrid strokeDasharray='3 3' />
@@ -81,6 +130,7 @@ class Example extends PureComponent {
             />
           </LineChart>
         </ResponsiveContainer>
+        {details}
       </div>
     );
   }
