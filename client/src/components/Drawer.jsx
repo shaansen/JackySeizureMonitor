@@ -11,6 +11,7 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
+import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 
 class DrawerComponent extends React.Component {
   render() {
@@ -53,7 +54,7 @@ class DrawerComponent extends React.Component {
             <ListItemIcon>
               <EventIcon />
             </ListItemIcon>
-            <ListItemText primary='View Calendar' />
+            <ListItemText primary='Calendar' />
           </ListItem>
 
           <ListItem
@@ -64,9 +65,9 @@ class DrawerComponent extends React.Component {
             }}
           >
             <ListItemIcon>
-              <EventIcon />
+              <TrendingUpIcon />
             </ListItemIcon>
-            <ListItemText primary='View Trends' />
+            <ListItemText primary='Trends' />
           </ListItem>
         </List>
       </div>

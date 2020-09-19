@@ -7,6 +7,7 @@ import ReportIcon from "@material-ui/icons/Report";
 import GridOnIcon from "@material-ui/icons/GridOn";
 import EventIcon from "@material-ui/icons/Event";
 import Button from "@material-ui/core/Button";
+import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 
 const LandingPage = () => {
   return (
@@ -28,6 +29,12 @@ const LandingPage = () => {
         <ListItem>
           <ListItemIcon>
             <EventIcon />
+          </ListItemIcon>
+          <ListItemText primary='View Calendar' />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <TrendingUpIcon />
           </ListItemIcon>
           <ListItemText primary='View Patterns/Trends' />
         </ListItem>
