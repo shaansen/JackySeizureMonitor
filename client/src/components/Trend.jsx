@@ -125,6 +125,7 @@ class Example extends PureComponent {
             <YAxis />
             <Legend />
             <Line
+              dot={{ stroke: "red", strokeWidth: 2 }}
               type='monotone'
               dataKey='count'
               stroke='#8884d8'
@@ -142,4 +143,11 @@ const mapStateToProps = ({ events }) => {
   return { events };
 };
 
-export default connect(mapStateToProps, actions)(Example);
+export default connect(
+  mapStateToProps,
+  actions
+)(
+  React.memo(Example, (prevProps, newProps) => {
+    return prevProps?.events?.length === newProps?.events?.length;
+  })
+);
