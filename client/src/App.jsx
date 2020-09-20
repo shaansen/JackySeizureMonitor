@@ -66,7 +66,7 @@ class App extends React.Component {
                   onClick={() => this.setState({ sidebarOpen: true })}
                 />
               )}
-              <Link to='/'>
+              <Link className='app-name' to='/'>
                 <Typography variant='h6'>Epilepsy Journal</Typography>
               </Link>
             </div>

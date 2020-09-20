@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC&family=Lato&display=swap");
+
 .app-container {
   display: flex;
   flex-direction: column;
@@ -179,4 +181,8 @@ textarea {
     flex-direction: row;
     justify-content: space-between;
   }
+}
+
+a.app-name {
+  text-decoration: none;
 }

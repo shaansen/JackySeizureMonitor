@@ -29,7 +29,7 @@ class DeleteEvent extends React.Component {
     };
     const time = moment(this.props.event.date)
       .tz(moment.tz.guess())
-      .format("h:mm:ss a");
+      .format("h:mm a");
     const date = moment(this.props.event.date)
       .tz(moment.tz.guess())
       .format("MMM d");
