@@ -17,10 +17,10 @@ Being a data visualization enthusiast, I was interested in using charting librar
 
 # Screenshots
 
-![IMG-0062](https://user-images.githubusercontent.com/7847324/93707615-0c5b8280-fae5-11ea-932d-fcb3c28a225c.jpg)
-![IMG-0063](https://user-images.githubusercontent.com/7847324/93707616-0cf41900-fae5-11ea-8041-b9766b33b0db.jpg)
-![IMG-0064](https://user-images.githubusercontent.com/7847324/93707618-0d8caf80-fae5-11ea-9ffe-cabe80ae2085.jpg)
-![IMG-0065](https://user-images.githubusercontent.com/7847324/93707619-0d8caf80-fae5-11ea-9178-553e3357473d.jpg)
+<img src="https://user-images.githubusercontent.com/7847324/93707615-0c5b8280-fae5-11ea-932d-fcb3c28a225c.jpg"  width="120">
+<img src="https://user-images.githubusercontent.com/7847324/93707616-0cf41900-fae5-11ea-8041-b9766b33b0db.jpg"  width="120">
+<img src="https://user-images.githubusercontent.com/7847324/93707618-0d8caf80-fae5-11ea-9ffe-cabe80ae2085.jpg"  width="120">
+<img src="https://user-images.githubusercontent.com/7847324/93707619-0d8caf80-fae5-11ea-9178-553e3357473d.jpg"  width="120">
 
 # Tech/Framework used
 
