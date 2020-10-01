@@ -15,6 +15,7 @@ import {
   AppBar,
   Button,
   CircularProgress,
+  Container,
   Toolbar,
   Typography,
 } from "@material-ui/core";
@@ -57,7 +58,7 @@ class App extends React.Component {
     };
 
     const AppBarHeader = (
-      <AppBar position='fixed'>
+      <AppBar position='sticky'>
         <Toolbar>
           <div className='app-nav'>
             <div className='nav-app-name'>

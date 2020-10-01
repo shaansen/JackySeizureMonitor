@@ -1,19 +1,11 @@
 import React, { PureComponent } from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
 import * as actions from "../actions";
 import { connect } from "react-redux";
 import moment from "moment-timezone";
 import { getCount } from "./util.js";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
+import Chart from "./Chart";
 
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -101,38 +93,14 @@ class Example extends PureComponent {
     return (
       <div className='trend-container'>
         {buttons}
-        <ResponsiveContainer width='100%' height='40%'>
-          <LineChart
-            data={Object.values(timingsByDate).sort((a, b) => {
-              const a1 = moment(a.date, "YYYY-MM-DD");
-              const b1 = moment(b.date, "YYYY-MM-DD");
-              return a1.isSameOrAfter(b1) ? 1 : -1;
-            })}
-            margin={{
-              top: 40,
-              right: 40,
-              left: 0,
-              bottom: 5,
-            }}
-            onClick={(e) => {
-              this.setState({
-                currentDateObject: e && e.activePayload[0].payload,
-              });
-            }}
-          >
-            <CartesianGrid strokeDasharray='3 3' />
-            <XAxis dataKey='dateFriendly' angle={-45} />
-            <YAxis />
-            <Legend />
-            <Line
-              dot={{ stroke: "red", strokeWidth: 2 }}
-              type='monotone'
-              dataKey='count'
-              stroke='#8884d8'
-              activeDot={{ r: 8 }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
+        <Chart
+          timingsByDate={timingsByDate}
+          onClickHandler={(e) => {
+            this.setState({
+              currentDateObject: e && e.activePayload[0].payload,
+            });
+          }}
+        />
         {details}
       </div>
     );

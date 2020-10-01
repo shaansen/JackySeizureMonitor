@@ -1,13 +1,13 @@
-import "react-calendar-heatmap/dist/styles.css";
 import React from "react";
 import "./Calendar.css";
-import CalendarHeatmap from "react-calendar-heatmap";
+
 import moment from "moment-timezone";
 import * as actions from "../actions";
 import { connect } from "react-redux";
 import { getCount } from "./util.js";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
+import Heatmap from "./Heatmap";
 
 class Calendar extends React.Component {
   constructor(props) {
@@ -80,23 +80,12 @@ class Calendar extends React.Component {
     return (
       <div className='calendar-container'>
         {buttons}
-        <div className={`react-calendar-heatmap`}>
-          <CalendarHeatmap
-            startDate={new Date(`${currentYear}-01-01`)}
-            endDate={new Date(`${currentYear}-12-01`)}
-            values={Object.values(timingsByDate)}
-            horizontal={false}
-            showWeekdayLabels={true}
-            weekdayLabels={["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]}
-            onClick={(value) => this.setState({ currentTooltip: value })}
-            classForValue={(value) => {
-              if (!value) {
-                return "color-empty";
-              }
-              return `color-scale-${value.count}`;
-            }}
-          />
-        </div>
+
+        <Heatmap
+          currentYear={currentYear}
+          timingsByDate={timingsByDate}
+          onClickHandler={(value) => this.setState({ currentTooltip: value })}
+        />
       </div>
     );
   }

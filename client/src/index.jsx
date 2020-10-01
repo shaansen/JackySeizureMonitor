@@ -23,5 +23,5 @@ render(
       <App />
     </Provider>
   </ThemeProvider>,
-  document.getElementById("root")
+  document.body
 );

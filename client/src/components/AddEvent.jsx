@@ -5,6 +5,9 @@ import moment from "moment";
 import TextField from "@material-ui/core/TextField";
 import * as actions from "../actions";
 import { connect } from "react-redux";
+import { DateTimePicker } from "@material-ui/pickers";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import MomentUtils from "@date-io/moment";
 
 class AddEvent extends React.Component {
   constructor(props) {
@@ -45,7 +48,7 @@ class AddEvent extends React.Component {
         id='outlined-multiline-static'
         label='Notes'
         multiline
-        rows={4}
+        rows={2}
         value={notes}
         placeholder='Enter details like severity, medicines administered, injuries, etc.'
         variant='outlined'
@@ -86,26 +89,17 @@ class AddEvent extends React.Component {
             <div className='report-event-custom'>
               <h4>Report at custom time</h4>
               {textField}
-              {/* <Datetime value={dtp} defaultValue={dtp} onChange={onChange} /> */}
-              <TextField
-                id='datetime-local'
-                type='datetime-local'
-                defaultValue={
-                  moment(dtp).tz(moment.tz.guess()).format("YYYY-MM-DD") +
-                  "T" +
-                  moment(dtp).tz(moment.tz.guess()).format("HH:mm")
-                }
-                onChange={(e) =>
-                  onChange(
-                    moment(e.target.value, "YYYY-MM-DDTHH:mm").tz(
-                      moment.tz.guess()
-                    )
-                  )
-                }
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
+              <MuiPickersUtilsProvider utils={MomentUtils}>
+                <DateTimePicker
+                  value={dtp}
+                  disablePast
+                  onChange={(e) => {
+                    onChange(moment(e).tz(moment.tz.guess()));
+                  }}
+                  label='With Today Button'
+                  showTodayButton
+                />
+              </MuiPickersUtilsProvider>
               <Button
                 variant='contained'
                 color='primary'
