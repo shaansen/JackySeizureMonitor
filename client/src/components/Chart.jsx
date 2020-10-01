@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { useState } from "react";
 import {
   LineChart,
   Line,
@@ -9,11 +9,25 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import moment from "moment-timezone";
-import useScreenOrientation from "react-hook-screen-orientation";
 
 const Chart = (props) => {
   const { timingsByDate, onClickHandler } = props;
-  const screenOrientation = useScreenOrientation();
+  const [screenOrientation, setOrientation] = useState("portrait");
+
+  function doOnOrientationChange() {
+    switch (window.orientation) {
+      case -90:
+      case 90:
+        setOrientation("landscape");
+        break;
+      default:
+        setOrientation("portrait");
+        break;
+    }
+  }
+
+  window.addEventListener("orientationchange", doOnOrientationChange);
+
   return (
     <ResponsiveContainer
       width='100%'

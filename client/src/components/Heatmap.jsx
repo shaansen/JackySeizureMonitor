@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import "react-calendar-heatmap/dist/styles.css";
 import CalendarHeatmap from "react-calendar-heatmap";
-import useScreenOrientation from "react-hook-screen-orientation";
 
 const Heatmap = (props) => {
   const { currentYear, timingsByDate, onClickHandler } = props;
-  const screenOrientation = useScreenOrientation();
+  const [screenOrientation, setOrientation] = useState("portrait");
+
+  function doOnOrientationChange() {
+    switch (window.orientation) {
+      case -90:
+      case 90:
+        setOrientation("landscape");
+        break;
+      default:
+        setOrientation("portrait");
+        break;
+    }
+  }
+
+  window.addEventListener("orientationchange", doOnOrientationChange);
 
   return (
     <div
