@@ -44,24 +44,26 @@ class Example extends PureComponent {
       }`;
 
     const buttons = (
-      <ButtonGroup
-        variant='contained'
-        aria-label='contained primary button group'
-      >
-        {yearsAvailable.map((year, id) => (
-          <Button
-            key={id}
-            color={year === currentYear ? "secondary" : "default"}
-            onClick={(e) =>
-              this.setState({
-                currentYear: e.target.textContent,
-              })
-            }
-          >
-            {year}
-          </Button>
-        ))}
-      </ButtonGroup>
+      <div className='trend-button-container'>
+        <ButtonGroup
+          variant='contained'
+          aria-label='contained primary button group'
+        >
+          {yearsAvailable.map((year, id) => (
+            <Button
+              key={id}
+              color={year === currentYear ? "secondary" : "default"}
+              onClick={(e) =>
+                this.setState({
+                  currentYear: e.target.textContent,
+                })
+              }
+            >
+              {year}
+            </Button>
+          ))}
+        </ButtonGroup>
+      </div>
     );
 
     const details = currentDateObject !== null && (

@@ -18,7 +18,8 @@ export const getEvents = () => async (dispatch) => {
 };
 
 export const addEvent = ({ date, notes }) => async (dispatch) => {
-  await axios.post("/api/event", { date, notes });
+  const response = await axios.post("/api/event", { date, notes });
+  return response;
 };
 
 export const deleteEvent = (id) => async (dispatch) => {

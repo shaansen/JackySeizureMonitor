@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@material-ui/core";
+import { Button, CircularProgress } from "@material-ui/core";
 import { initialData } from "./initialData"; // eslint-disable-line
 import moment from "moment";
 import TextField from "@material-ui/core/TextField";
@@ -18,6 +18,7 @@ class AddEvent extends React.Component {
       later: false,
       showNotification: false,
       notes: "",
+      disableButton: false,
     };
   }
 
@@ -31,16 +32,45 @@ class AddEvent extends React.Component {
   }
 
   render() {
-    const { dtp, saveddtp, later, showNotification, notes } = this.state;
+    const {
+      dtp,
+      saveddtp,
+      later,
+      showNotification,
+      notes,
+      disableButton,
+    } = this.state;
 
     const onChange = (date) => this.setState({ dtp: date });
     const addEvent = (date) => {
-      this.props.addEvent({ notes: notes, date: date });
-      this.setState({
-        saveddtp: date,
-        showNotification: true,
-        notes: "",
-      });
+      this.setState(
+        {
+          disableButton: true,
+        },
+        async () => {
+          const response = await this.props.addEvent({
+            notes: notes,
+            date: date,
+          });
+          if (response.status === 200) {
+            this.setState(
+              {
+                saveddtp: date,
+                showNotification: true,
+                notes: "",
+              },
+              () => {
+                setTimeout(() => {
+                  this.setState({
+                    showNotification: false,
+                    disableButton: false,
+                  });
+                }, 3000);
+              }
+            );
+          }
+        }
+      );
     };
 
     const textField = (
@@ -60,17 +90,18 @@ class AddEvent extends React.Component {
       <React.Fragment>
         <div className='report-created-alert'>
           {showNotification &&
-            `Successfully saved an event on Date ${moment(saveddtp)
+            `Successfully saved an event on ${moment(saveddtp)
               .tz(moment.tz.guess())
-              .format("YYYY-MM-DD")} at Time ${moment(saveddtp)
+              .format("MMM DD")} at ${moment(saveddtp)
               .tz(moment.tz.guess())
-              .format("hh:mm:ss a")}`}
+              .format("hh:mm A")}`}
         </div>
         <div className='report-event-container'>
           {!later ? (
             <div className='report-event-now'>
               {textField}
               <Button
+                disabled={disableButton}
                 variant='contained'
                 color='primary'
                 onClick={(e) => {
@@ -79,7 +110,8 @@ class AddEvent extends React.Component {
                   addEvent(d);
                 }}
               >
-                Press to Report Epilepsy Now
+                {!disableButton && "Press to Report Epilepsy Now"}
+                <CircularProgress />
               </Button>
               <Button onClick={() => this.setState({ later: true })}>
                 Report event at custom time instead
@@ -87,28 +119,30 @@ class AddEvent extends React.Component {
             </div>
           ) : (
             <div className='report-event-custom'>
-              <h4>Report at custom time</h4>
               {textField}
               <MuiPickersUtilsProvider utils={MomentUtils}>
                 <DateTimePicker
+                  className='date-time-picker'
                   value={dtp}
                   disablePast
                   onChange={(e) => {
                     onChange(moment(e).tz(moment.tz.guess()));
                   }}
-                  label='With Today Button'
+                  label='Pick Date'
                   showTodayButton
                 />
               </MuiPickersUtilsProvider>
               <Button
                 variant='contained'
                 color='primary'
+                disabled={disableButton}
                 onClick={(e) => {
                   e.preventDefault();
                   addEvent(dtp);
                 }}
               >
-                Press to Report Epilepsy Event
+                {!disableButton && "Press to Report Epilepsy Event"}
+                <CircularProgress />
               </Button>
               <Button onClick={() => this.setState({ later: false })}>
                 Report event now instead

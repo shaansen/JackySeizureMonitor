@@ -3,6 +3,7 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: "Lato";
 }
 
 .app-container {
@@ -163,7 +164,7 @@ textarea {
 }
 
 .you-can {
-  font-size: 14px;
+  font-size: 18px;
   margin: 10px;
 }
 
@@ -188,4 +189,12 @@ textarea {
 
 a.app-name {
   text-decoration: none;
+}
+
+.trend-button-container {
+  min-height: 40px;
+}
+
+.date-time-picker {
+  margin-top: 15px !important;
 }
