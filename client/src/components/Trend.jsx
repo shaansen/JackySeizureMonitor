@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import * as actions from "../actions";
 import { connect } from "react-redux";
 import moment from "moment-timezone";
-import { getCount } from "./util.js";
+import { getCount, getDifference } from "./util.js";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Chart from "./Chart";
@@ -32,7 +32,7 @@ class Example extends PureComponent {
   }
   render() {
     const { currentYear, currentDateObject } = this.state;
-    const { timingsByDate, yearsAvailable } = getCount(
+    const { allDates, timingsByDate, yearsAvailable } = getCount(
       this.props.events,
       currentYear
     );
@@ -44,10 +44,10 @@ class Example extends PureComponent {
       }`;
 
     const buttons = (
-      <div className='trend-button-container'>
+      <div className="trend-button-container">
         <ButtonGroup
-          variant='contained'
-          aria-label='contained primary button group'
+          variant="contained"
+          aria-label="contained primary button group"
         >
           {yearsAvailable.map((year, id) => (
             <Button
@@ -66,18 +66,27 @@ class Example extends PureComponent {
       </div>
     );
 
+    const difference =
+      currentDateObject && getDifference(currentDateObject.date, allDates);
+
     const details = currentDateObject !== null && (
-      <div className='trend-detail-container'>
-        <Card variant='outlined'>
+      <div className="trend-detail-container">
+        <Card variant="outlined">
           <CardContent>
-            <Typography color='textSecondary' gutterBottom>
+            <Typography color="textSecondary" gutterBottom>
               Jacky had epilepsy on
             </Typography>
-            <Typography variant='h5' component='h2'>
+            <Typography variant="h5" component="h2">
               {currentDateObject.dateFriendly}
               <Chip label={occurrence} />
             </Typography>
-            <List dense={true} aria-label='main mailbox folders'>
+            {difference && (
+              <Typography variant="h6" component="h3">
+                {`Previous event ${difference} days ago`}
+              </Typography>
+            )}
+
+            <List dense={true} aria-label="main mailbox folders">
               {currentDateObject.time.map((a, i) => (
                 <ListItem key={i} button>
                   <ListItemIcon>
@@ -93,7 +102,7 @@ class Example extends PureComponent {
     );
 
     return (
-      <div className='trend-container'>
+      <div className="trend-container">
         {buttons}
         <Chart
           timingsByDate={timingsByDate}

@@ -61,8 +61,8 @@ class EventList extends React.Component {
     });
 
     return (
-      <TableContainer className='event-list-container' component={Paper}>
-        <Table stickyHeader aria-label='simple table'>
+      <TableContainer className="event-list-container" component={Paper}>
+        <Table stickyHeader aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>Id</TableCell>
@@ -88,7 +88,7 @@ class EventList extends React.Component {
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>{date.format("MMMM Do YYYY")}</TableCell>
                   <TableCell>{date.format("ddd")}</TableCell>
-                  <TableCell className='event-button-cell'>
+                  <TableCell className="event-button-cell">
                     {timingsByDate[date.format("MMMM Do YYYY")].event
                       .sort((a, b) => {
                         const a1 = moment(a.date);

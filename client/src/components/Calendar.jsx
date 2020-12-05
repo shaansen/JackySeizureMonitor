@@ -4,7 +4,7 @@ import "./Calendar.css";
 import moment from "moment-timezone";
 import * as actions from "../actions";
 import { connect } from "react-redux";
-import { getCount } from "./util.js";
+import { getCount, getDifference } from "./util.js";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Heatmap from "./Heatmap";
@@ -24,7 +24,7 @@ class Calendar extends React.Component {
 
   render() {
     const { currentYear, currentTooltip } = this.state;
-    const { timingsByDate, yearsAvailable } = getCount(
+    const { allDates, timingsByDate, yearsAvailable } = getCount(
       this.props.events,
       currentYear
     );
@@ -38,12 +38,18 @@ class Calendar extends React.Component {
           .tz(moment.tz.guess())
           .format("MMM");
         const times = currentTooltip.count;
+
+        const difference = getDifference(currentTooltip.date, allDates);
+        
         return (
           <div className='tooltip-info-container'>
             <h1>{day}</h1>
             <h3>{month}</h3>
             <p>
-              {times} {times === 1 ? "time" : "times"}
+            Happened {times} {times === 1 ? "time" : "times"}
+            </p>
+            <p>
+            {difference ? "Occuring after "+  difference + (difference === 1 ? " day" : " days") : "First event of the year"} 
             </p>
           </div>
         );
