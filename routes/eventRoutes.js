@@ -14,7 +14,7 @@ module.exports = (app) => {
   app.post("/api/event", requireLogin, (req, res) => {
     const { date, notes } = req.body;
     const event = new Event({
-      date: date || new Date().toString(),
+      date: new Date(date),
       notes,
       _user: req.user.id,
     });
