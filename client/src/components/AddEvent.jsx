@@ -75,20 +75,20 @@ class AddEvent extends React.Component {
 
     const textField = (
       <TextField
-        id='outlined-multiline-static'
-        label='Notes'
+        id="outlined-multiline-static"
+        label="Notes"
         multiline
         rows={2}
         value={notes}
-        placeholder='Enter details like severity, medicines administered, injuries, etc.'
-        variant='outlined'
+        placeholder="Enter details like severity, medicines administered, injuries, etc."
+        variant="outlined"
         onChange={(e) => this.setState({ notes: e.target.value })}
       />
     );
 
     return (
       <React.Fragment>
-        <div className='report-created-alert'>
+        <div className="report-created-alert">
           {showNotification &&
             `Successfully saved an event on ${moment(saveddtp)
               .tz(moment.tz.guess())
@@ -96,14 +96,14 @@ class AddEvent extends React.Component {
               .tz(moment.tz.guess())
               .format("hh:mm A")}`}
         </div>
-        <div className='report-event-container'>
+        <div className="report-event-container">
           {!later ? (
-            <div className='report-event-now'>
+            <div className="report-event-now">
               {textField}
               <Button
                 disabled={disableButton}
-                variant='contained'
-                color='primary'
+                variant="contained"
+                color="primary"
                 onClick={(e) => {
                   e.preventDefault();
                   const d = new Date();
@@ -118,23 +118,22 @@ class AddEvent extends React.Component {
               </Button>
             </div>
           ) : (
-            <div className='report-event-custom'>
+            <div className="report-event-custom">
               {textField}
               <MuiPickersUtilsProvider utils={MomentUtils}>
                 <DateTimePicker
-                  className='date-time-picker'
+                  className="date-time-picker"
                   value={dtp}
-                  disablePast
                   onChange={(e) => {
                     onChange(moment(e).tz(moment.tz.guess()));
                   }}
-                  label='Pick Date'
+                  label="Pick Date"
                   showTodayButton
                 />
               </MuiPickersUtilsProvider>
               <Button
-                variant='contained'
-                color='primary'
+                variant="contained"
+                color="primary"
                 disabled={disableButton}
                 onClick={(e) => {
                   e.preventDefault();
