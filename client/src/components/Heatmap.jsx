@@ -28,7 +28,7 @@ const Heatmap = (props) => {
     >
       <CalendarHeatmap
         startDate={new Date(`${currentYear}-01-01`)}
-        endDate={new Date(`${currentYear}-12-01`)}
+        endDate={new Date(`${currentYear}-12-31`)}
         values={Object.values(timingsByDate)}
         horizontal={screenOrientation.includes("landscape")}
         showWeekdayLabels={true}

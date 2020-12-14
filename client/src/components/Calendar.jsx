@@ -40,16 +40,20 @@ class Calendar extends React.Component {
         const times = currentTooltip.count;
 
         const difference = getDifference(currentTooltip.date, allDates);
-        
+
         return (
-          <div className='tooltip-info-container'>
+          <div className="tooltip-info-container">
             <h1>{day}</h1>
             <h3>{month}</h3>
             <p>
-            Happened {times} {times === 1 ? "time" : "times"}
+              Happened {times} {times === 1 ? "time" : "times"}
             </p>
             <p>
-            {difference ? "Occuring after "+  difference + (difference === 1 ? " day" : " days") : "First event of the year"} 
+              {difference
+                ? "Occuring after " +
+                  difference +
+                  (difference === 1 ? " day" : " days")
+                : "First event of the year"}
             </p>
           </div>
         );
@@ -58,11 +62,11 @@ class Calendar extends React.Component {
     };
 
     const buttons = (
-      <div id='calendar-year-buttons'>
+      <div id="calendar-year-buttons">
         <ButtonGroup
-          orientation='vertical'
-          variant='contained'
-          aria-label='contained primary button group'
+          orientation="vertical"
+          variant="contained"
+          aria-label="contained primary button group"
         >
           {yearsAvailable.map((year, id) => (
             <Button
@@ -84,7 +88,7 @@ class Calendar extends React.Component {
     );
 
     return (
-      <div className='calendar-container'>
+      <div className="calendar-container">
         {buttons}
 
         <Heatmap

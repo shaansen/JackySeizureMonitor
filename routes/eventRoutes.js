@@ -6,9 +6,11 @@ const Event = mongoose.model("event");
 
 module.exports = (app) => {
   app.get("/api/event", requireLogin, (req, res) => {
-    Event.find({}, function (err, events) {
-      res.send(events);
-    });
+    Event.find()
+      .sort([["date", +1]])
+      .exec(function (err, events) {
+        res.send(events);
+      });
   });
 
   app.post("/api/event", requireLogin, (req, res) => {
