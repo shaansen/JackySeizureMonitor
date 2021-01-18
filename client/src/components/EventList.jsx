@@ -1,5 +1,5 @@
 import React from "react";
-import moment from "moment";
+import moment from "moment-timezone";
 import _ from "lodash";
 import DeleteEvent from "./DeleteEvent";
 import Table from "@material-ui/core/Table";

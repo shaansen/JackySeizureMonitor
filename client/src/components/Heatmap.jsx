@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "react-calendar-heatmap/dist/styles.css";
-import CalendarHeatmap from "react-calendar-heatmap";
+const CalendarHeatmap = React.lazy(() => import("react-calendar-heatmap"));
 
 const Heatmap = (props) => {
   const { currentYear, timingsByDate, onClickHandler } = props;

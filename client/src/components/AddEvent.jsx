@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, CircularProgress } from "@material-ui/core";
 import { initialData } from "./initialData"; // eslint-disable-line
-import moment from "moment";
+import moment from "moment-timezone";
 import TextField from "@material-ui/core/TextField";
 import * as actions from "../actions";
 import { connect } from "react-redux";

@@ -1,27 +1,25 @@
-import React from "react";
+import React, { Suspense } from "react";
 import "./style/styles.scss";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { connect } from "react-redux";
-
-import * as actions from "./actions";
-import EventList from "./components/EventList";
-import AddEvent from "./components/AddEvent";
-import Calendar from "./components/Calendar";
-import LandingPage from "./components/Landing";
-import Drawer from "./components/Drawer";
-import Trend from "./components/Trend";
-
 import {
   AppBar,
   Button,
   CircularProgress,
-  Container,
   Toolbar,
   Typography,
 } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import MenuIcon from "@material-ui/icons/Menu";
+import * as actions from "./actions";
+import LandingPage from "./components/Landing";
+import Drawer from "./components/Drawer";
+
+const Trend = React.lazy(() => import("./components/Trend"));
+const EventList = React.lazy(() => import("./components/EventList"));
+const AddEvent = React.lazy(() => import("./components/AddEvent"));
+const Calendar = React.lazy(() => import("./components/Calendar"));
 
 class App extends React.Component {
   constructor(props) {
@@ -91,16 +89,24 @@ class App extends React.Component {
           <React.Fragment>
             <Switch>
               <Route path="/table">
-                <EventList />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <EventList />
+                </Suspense>
               </Route>
               <Route path="/calendar">
-                <Calendar />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Calendar />
+                </Suspense>
               </Route>
               <Route path="/trend">
-                <Trend />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Trend />
+                </Suspense>
               </Route>
               <Route exact path="/">
-                <AddEvent />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <AddEvent />
+                </Suspense>
               </Route>
             </Switch>
           </React.Fragment>
