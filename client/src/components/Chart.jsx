@@ -30,7 +30,7 @@ const Chart = (props) => {
 
   return (
     <ResponsiveContainer
-      width='100%'
+      width="100%"
       height={screenOrientation.includes("landscape") ? "75%" : "40%"}
     >
       <LineChart
@@ -47,15 +47,15 @@ const Chart = (props) => {
         }}
         onClick={onClickHandler}
       >
-        <CartesianGrid strokeDasharray='3 3' />
-        <XAxis dataKey='dateFriendly' angle={-45} />
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="dateFriendly" angle={-45} />
         <YAxis />
         <Legend />
         <Line
           dot={{ stroke: "red", strokeWidth: 2 }}
-          type='monotone'
-          dataKey='count'
-          stroke='#8884d8'
+          type="monotone"
+          dataKey="count"
+          stroke="#8884d8"
           activeDot={{ r: 8 }}
         />
       </LineChart>

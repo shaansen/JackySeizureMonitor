@@ -11,35 +11,35 @@ import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 
 const LandingPage = () => {
   return (
-    <div className='landing-container'>
+    <div className="landing-container">
       <h2>Manage Jacky's Epilepsy Records</h2>
       <List>
         <ListItem>
           <ListItemIcon>
             <ReportIcon />
           </ListItemIcon>
-          <ListItemText primary='Report Epilepsy Event' />
+          <ListItemText primary="Report Epilepsy Event" />
         </ListItem>
         <ListItem>
           <ListItemIcon>
             <GridOnIcon />
           </ListItemIcon>
-          <ListItemText primary='Manage Epilepsy Records' />
+          <ListItemText primary="Manage Epilepsy Records" />
         </ListItem>
         <ListItem>
           <ListItemIcon>
             <EventIcon />
           </ListItemIcon>
-          <ListItemText primary='View Calendar' />
+          <ListItemText primary="View Calendar" />
         </ListItem>
         <ListItem>
           <ListItemIcon>
             <TrendingUpIcon />
           </ListItemIcon>
-          <ListItemText primary='View Patterns/Trends' />
+          <ListItemText primary="View Patterns/Trends" />
         </ListItem>
       </List>
-      <Button variant='contained' color='secondary' href='/auth/google'>
+      <Button variant="contained" color="secondary" href="/auth/google">
         Sign In with Google
       </Button>
     </div>

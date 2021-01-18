@@ -37,8 +37,8 @@ class DeleteEvent extends React.Component {
     return (
       <React.Fragment>
         <Button
-          className='event-button'
-          variant='contained'
+          className="event-button"
+          variant="contained"
           onClick={handleClickOpen}
         >
           {time}
@@ -46,12 +46,12 @@ class DeleteEvent extends React.Component {
         <Dialog
           open={open}
           onClose={handleClose}
-          aria-labelledby='alert-dialog-title'
-          aria-describedby='alert-dialog-description'
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id='alert-dialog-title'>{`${date} at ${time}`}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">{`${date} at ${time}`}</DialogTitle>
           <DialogContent>
-            <DialogContentText id='alert-dialog-description'>
+            <DialogContentText id="alert-dialog-description">
               Notes : {notes}
             </DialogContentText>
           </DialogContent>
@@ -68,7 +68,7 @@ class DeleteEvent extends React.Component {
             >
               Delete Event
             </Button>
-            <Button onClick={handleClose} color='secondary'>
+            <Button onClick={handleClose} color="secondary">
               Cancel
             </Button>
           </DialogActions>

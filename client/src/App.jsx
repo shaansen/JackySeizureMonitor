@@ -50,7 +50,7 @@ class App extends React.Component {
 
         default:
           return (
-            <Button variant='contained' color='secondary' href='/api/logout'>
+            <Button variant="contained" color="secondary" href="/api/logout">
               Sign Out
             </Button>
           );
@@ -58,20 +58,20 @@ class App extends React.Component {
     };
 
     const AppBarHeader = (
-      <AppBar position='sticky'>
+      <AppBar position="sticky">
         <Toolbar>
-          <div className='app-nav'>
-            <div className='nav-app-name'>
+          <div className="app-nav">
+            <div className="nav-app-name">
               {!!this.props.auth && (
                 <MenuIcon
                   onClick={() => this.setState({ sidebarOpen: true })}
                 />
               )}
-              <Link className='app-name' to='/'>
-                <Typography variant='h6'>Epilepsy Journal</Typography>
+              <Link className="app-name" to="/">
+                <Typography variant="h6">Epilepsy Journal</Typography>
               </Link>
             </div>
-            <div className='nav-app-links'>{renderAuthInfo()}</div>
+            <div className="nav-app-links">{renderAuthInfo()}</div>
           </div>
         </Toolbar>
       </AppBar>
@@ -90,16 +90,16 @@ class App extends React.Component {
         return (
           <React.Fragment>
             <Switch>
-              <Route path='/table'>
+              <Route path="/table">
                 <EventList />
               </Route>
-              <Route path='/calendar'>
+              <Route path="/calendar">
                 <Calendar />
               </Route>
-              <Route path='/trend'>
+              <Route path="/trend">
                 <Trend />
               </Route>
-              <Route exact path='/'>
+              <Route exact path="/">
                 <AddEvent />
               </Route>
             </Switch>
@@ -110,7 +110,7 @@ class App extends React.Component {
 
     return (
       <Router>
-        <div className='app-container'>
+        <div className="app-container">
           <Drawer
             sidebarOpen={this.state.sidebarOpen}
             toggleSideBar={this.toggleSideBar}

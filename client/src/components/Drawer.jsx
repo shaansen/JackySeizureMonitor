@@ -16,7 +16,7 @@ import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 class DrawerComponent extends React.Component {
   render() {
     const list = (anchor) => (
-      <div role='presentation'>
+      <div role="presentation">
         <List>
           <ListItem
             button
@@ -28,7 +28,7 @@ class DrawerComponent extends React.Component {
             <ListItemIcon>
               <ReportIcon />
             </ListItemIcon>
-            <ListItemText primary='Report Epilepsy Event' />
+            <ListItemText primary="Report Epilepsy Event" />
           </ListItem>
 
           <ListItem
@@ -41,7 +41,7 @@ class DrawerComponent extends React.Component {
             <ListItemIcon>
               <GridOnIcon />
             </ListItemIcon>
-            <ListItemText primary='Manage Epilepsy Records' />
+            <ListItemText primary="Manage Epilepsy Records" />
           </ListItem>
 
           <ListItem
@@ -54,7 +54,7 @@ class DrawerComponent extends React.Component {
             <ListItemIcon>
               <EventIcon />
             </ListItemIcon>
-            <ListItemText primary='Calendar' />
+            <ListItemText primary="Calendar" />
           </ListItem>
 
           <ListItem
@@ -67,7 +67,7 @@ class DrawerComponent extends React.Component {
             <ListItemIcon>
               <TrendingUpIcon />
             </ListItemIcon>
-            <ListItemText primary='Trends' />
+            <ListItemText primary="Trends" />
           </ListItem>
         </List>
       </div>
@@ -80,7 +80,7 @@ class DrawerComponent extends React.Component {
         open={this.props.sidebarOpen}
         onClose={() => this.props.toggleSideBar(false)}
       >
-        <div className='you-can'>You can</div>
+        <div className="you-can">You can</div>
         <Divider />
         {list(anchor)}
       </Drawer>

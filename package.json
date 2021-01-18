@@ -13,7 +13,7 @@
   },
   "scripts": {
     "server": "nodemon index.js --ignore client",
-    "prettier": "prettier --write .",
+    "prettier": "prettier --write \"**/*.+(js|jsx|json|css|md)\"",
     "start": "node index.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
@@ -36,6 +36,6 @@
     "webpack-dev-middleware": "^1.9.0"
   },
   "devDependencies": {
-    "prettier": "2.1.1"
+    "prettier": "^2.1.1"
   }
 }
