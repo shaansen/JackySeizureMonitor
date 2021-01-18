@@ -34,11 +34,7 @@ const Chart = (props) => {
       height={screenOrientation.includes("landscape") ? "75%" : "40%"}
     >
       <LineChart
-        data={Object.values(timingsByDate).sort((a, b) => {
-          const a1 = moment(a.date, "YYYY-MM-DD");
-          const b1 = moment(b.date, "YYYY-MM-DD");
-          return a1.isSameOrAfter(b1) ? 1 : -1;
-        })}
+        data={Object.values(timingsByDate)}
         margin={{
           top: 40,
           right: 40,
