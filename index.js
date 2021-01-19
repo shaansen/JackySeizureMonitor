@@ -4,6 +4,7 @@ const cookieSession = require("cookie-session");
 const passport = require("passport");
 const keys = require("./config/keys");
 const bodyParser = require("body-parser");
+const compression = require("compression");
 require("./models/user");
 require("./models/event");
 require("./services/passport");
@@ -30,6 +31,7 @@ app.use(
 app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(compression());
 
 require("./routes/authRoutes")(app);
 require("./routes/eventRoutes")(app);

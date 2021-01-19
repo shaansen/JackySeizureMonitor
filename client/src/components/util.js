@@ -34,7 +34,7 @@ export const getCount = (events, currentYear) => {
       events.map((a) => moment(a.date).tz(moment.tz.guess()).format("YYYY"))) ||
     [];
 
-  yearsAvailable = [2018, 2019, 2020, 2021];
+  yearsAvailable = ["2018", "2019", "2020", "2021"];
 
   return { allDates, timingsByDate, yearsAvailable };
 };

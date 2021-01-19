@@ -8,7 +8,6 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import moment from "moment-timezone";
 
 const Chart = (props) => {
   const { timingsByDate, onClickHandler } = props;
