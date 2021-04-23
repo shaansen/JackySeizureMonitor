@@ -2,3 +2,4 @@ node_modules
 .DS_STORE
 config/dev.js
 client/build
+client/src/components/initialData.jsx

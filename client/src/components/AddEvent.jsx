@@ -78,7 +78,7 @@ class AddEvent extends React.Component {
         id="outlined-multiline-static"
         label="Notes"
         multiline
-        rows={2}
+        rows={5}
         value={notes}
         placeholder="Enter details like severity, medicines administered, injuries, etc."
         variant="outlined"
@@ -93,8 +93,8 @@ class AddEvent extends React.Component {
             `Successfully saved an event on ${moment(saveddtp)
               .tz(moment.tz.guess())
               .format("MMM DD")} at ${moment(saveddtp)
-              .tz(moment.tz.guess())
-              .format("hh:mm A")}`}
+                .tz(moment.tz.guess())
+                .format("hh:mm A")}`}
         </div>
         <div className="report-event-container">
           {!later ? (
@@ -111,43 +111,43 @@ class AddEvent extends React.Component {
                 }}
               >
                 {!disableButton && "Press to Report Epilepsy Now"}
-                <CircularProgress />
+                {disableButton && <CircularProgress />}
               </Button>
-              <Button onClick={() => this.setState({ later: true })}>
+              <Button variant="outlined" onClick={() => this.setState({ later: true })}>
                 Report event at custom time instead
               </Button>
             </div>
           ) : (
-            <div className="report-event-custom">
-              {textField}
-              <MuiPickersUtilsProvider utils={MomentUtils}>
-                <DateTimePicker
-                  className="date-time-picker"
-                  value={dtp}
-                  onChange={(e) => {
-                    onChange(moment(e).tz(moment.tz.guess()));
+              <div className="report-event-custom">
+                {textField}
+                <MuiPickersUtilsProvider utils={MomentUtils}>
+                  <DateTimePicker
+                    className="date-time-picker"
+                    value={dtp}
+                    onChange={(e) => {
+                      onChange(moment(e).tz(moment.tz.guess()));
+                    }}
+                    label="Pick Date"
+                    showTodayButton
+                  />
+                </MuiPickersUtilsProvider>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  disabled={disableButton}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    addEvent(dtp);
                   }}
-                  label="Pick Date"
-                  showTodayButton
-                />
-              </MuiPickersUtilsProvider>
-              <Button
-                variant="contained"
-                color="primary"
-                disabled={disableButton}
-                onClick={(e) => {
-                  e.preventDefault();
-                  addEvent(dtp);
-                }}
-              >
-                {!disableButton && "Press to Report Epilepsy Event"}
-                <CircularProgress />
+                >
+                  {!disableButton && "Press to Report Epilepsy Event"}
+                  {disableButton && <CircularProgress />}
+                </Button>
+                <Button variant="outlined" onClick={() => this.setState({ later: false })}>
+                  Report event now instead
               </Button>
-              <Button onClick={() => this.setState({ later: false })}>
-                Report event now instead
-              </Button>
-            </div>
-          )}
+              </div>
+            )}
         </div>
       </React.Fragment>
     );

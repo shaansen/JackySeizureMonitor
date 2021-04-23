@@ -26,7 +26,6 @@
     "lodash": "^4.17.20",
     "moment": "^2.29.0",
     "moment-timezone": "^0.5.31",
-    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-calendar-heatmap": "^1.8.1",
     "react-dom": "^16.13.1",
@@ -35,7 +34,8 @@
     "react-scripts": "3.4.3",
     "recharts": "^1.8.5",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "sass": "^1.32.11"
   },
   "scripts": {
     "start": "react-scripts start",

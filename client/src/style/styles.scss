@@ -11,6 +11,7 @@ body {
   flex-direction: column;
   overflow: auto;
   height: 100vh;
+  align-items: center;
 }
 
 .app-nav {
@@ -53,6 +54,18 @@ body {
   margin: 10px;
 }
 
+@media only screen and (min-width: 768px) {
+  .report-event-container {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .report-event-container {
+    width: 90%;
+  }
+}
+
 .report-event-container {
   height: 100%;
   padding: 10px;
@@ -82,6 +95,11 @@ body {
     justify-content: center;
     align-content: center;
     width: 100%;
+
+    button.MuiButton-containedPrimary {
+      margin: 10px 0;
+      font-size: 20px;
+    }
   }
 }
 
@@ -93,6 +111,7 @@ body {
 }
 
 .calendar-container {
+  width: 80%;
   padding: 10px 10px 10px 110px;
   overflow-x: auto;
   height: 100%;
@@ -119,7 +138,7 @@ body {
 #calendar-year-buttons {
   position: fixed;
   top: 80px;
-  left: 30px;
+  left: 20px;
 }
 
 .loading-container {
@@ -172,6 +191,7 @@ textarea {
 }
 
 .trend-container {
+  width: 100%;
   height: 100vh;
   margin-top: 10px;
   display: flex;
@@ -199,5 +219,9 @@ a.app-name {
 }
 
 .date-time-picker {
-  margin-top: 15px !important;
+  margin: 15px 0 15px !important;
+}
+
+.nav-menu-icon {
+  cursor:pointer;
 }

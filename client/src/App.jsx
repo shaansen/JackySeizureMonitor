@@ -62,6 +62,7 @@ class App extends React.Component {
             <div className="nav-app-name">
               {!!this.props.auth && (
                 <MenuIcon
+                  className="nav-menu-icon"
                   onClick={() => this.setState({ sidebarOpen: true })}
                 />
               )}

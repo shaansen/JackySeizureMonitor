@@ -4,27 +4,20 @@ const CalendarHeatmap = React.lazy(() => import("react-calendar-heatmap"));
 
 const Heatmap = (props) => {
   const { currentYear, timingsByDate, onClickHandler } = props;
-  const [screenOrientation, setOrientation] = useState("portrait");
+  const [screenOrientation, setOrientation] = useState(window.innerWidth < 768 ? "portrait" : "landscape");
 
-  function doOnOrientationChange() {
-    switch (window.orientation) {
-      case -90:
-      case 90:
-        setOrientation("landscape");
-        break;
-      default:
-        setOrientation("portrait");
-        break;
+  window.addEventListener('resize', (data) => {
+    if (data.target.innerWidth < 768) {
+      setOrientation("portrait");
+    } else {
+      setOrientation("landscape");
     }
-  }
-
-  window.addEventListener("orientationchange", doOnOrientationChange);
+  });
 
   return (
     <div
-      className={`react-calendar-heatmap-${
-        screenOrientation.includes("landscape") ? "landscape" : "portrait"
-      }`}
+      className={`react-calendar-heatmap-${screenOrientation.includes("landscape") ? "landscape" : "portrait"
+        }`}
     >
       <CalendarHeatmap
         startDate={new Date(`${currentYear}-01-01`)}
