@@ -61,7 +61,6 @@ class DeleteEvent extends React.Component {
               onClick={(e) => {
                 e.preventDefault();
                 this.props.deleteEvent(this.props.event._id);
-                this.props.refreshList();
                 handleClose();
               }}
               autoFocus

@@ -10,6 +10,12 @@
 .react-calendar-heatmap .color-scale-4 {
   fill: #1e6823;
 }
+.react-calendar-heatmap .color-scale-5 {
+  fill: #18531c;
+}
+.react-calendar-heatmap .color-scale-6 {
+  fill: #113b14;
+}
 
 .react-calendar-heatmap-landscape {
   width: 200vw;

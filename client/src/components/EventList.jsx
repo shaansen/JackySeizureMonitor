@@ -90,7 +90,6 @@ class EventList extends React.Component {
                       (e, i) => {
                         return (
                           <DeleteEvent
-                            refreshList={this.props.getEvents}
                             key={i}
                             event={e}
                           ></DeleteEvent>

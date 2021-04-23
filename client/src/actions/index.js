@@ -10,10 +10,10 @@ export const fetchUser = () => async (dispatch) => {
 };
 
 export const getEvents = () => async (dispatch) => {
-  const user = await axios.get("/api/event");
+  const events = await axios.get("/api/event");
   dispatch({
     type: GET_EVENTS,
-    payload: user,
+    payload: events,
   });
 };
 
@@ -24,4 +24,9 @@ export const addEvent = ({ date, notes }) => async (dispatch) => {
 
 export const deleteEvent = (id) => async (dispatch) => {
   await axios.delete(`/api/event/${id}`);
+  const events = await axios.get("/api/event");
+  dispatch({
+    type: GET_EVENTS,
+    payload: events,
+  });
 };
